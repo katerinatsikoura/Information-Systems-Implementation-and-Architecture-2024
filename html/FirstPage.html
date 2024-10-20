@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φόρμα Εξόδου</title>
+    <link rel="icon" href="../images/Deloitte_Symbol.png">
+    <link rel="stylesheet" href="../css1/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <style>
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            height: 100%;
+            margin: 80px 0;
+        }
+
+        .title {
+            padding: 20px 0 40px 0;
+            text-align: center;
+            border-bottom: 2px solid rgba(211, 211, 211);
+        }
+
+        .form {
+            width: 100%;
+            padding: 50px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .cont,
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cont {
+            width: 50%;
+        }
+
+        .form-group {
+            width: 100%;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 80%;
+        }
+
+        .form-group #receipt {
+            padding: 0;
+        }
+
+        .button-cont {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .form-group button,
+        .button-cont button {
+            background-color: #26890d;
+            border: #26890dbc 2px solid;
+            box-shadow: 1px 1px 5px rgb(92, 92, 92);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .form-group button:hover,
+        .button-cont button:hover {
+            background-color: #2fad0f;
+            transform: scale(1.025);
+        }
+
+        .right-cont {
+            grid-column: span 1;
+        }
+
+        .right-cont input,
+        .right-cont button,
+        .right-conta textarea {
+            margin-bottom: 20px;
+            width: 150%;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 40px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+            .form-group label {
+                font-size: 0.8rem;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+
+            button {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header">
+
+            <div class="head_left">
+                <a href="index.html">
+                    <img id="h_logo" src="../images/Deloitte_Logo.png" alt="Deloitte">
+                </a>
+
+                <div class="nav_bar">
+                    <ul class="nav_l">
+                        <li><a href="index.html">Αρχική</a></li>
+                        <li><a href="">Χρήστης</a></li>
+                        <li><a href="">Ρυθμίσεις</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="head_right">
+                <div class="search">
+                    <form>
+                        <input id="s_box" type="text" placeholder="Αναζήτηση..." autocomplete="off">
+                        <button id="s_but">
+                            <img id="s_img" src="../images/Search_Icon.png" alt="Search">
+                        </button>
+                    </form>
+                </div>
+
+                <div class="language">
+                    <button id="lang_menu">
+                        <img id="globe_icon" src="../images/Globe_Icon.png" alt="Switch Language">
+                    </button>
+                    <div class="lang_opt">
+                        <a id="gr" href="">Ελληνικά</a>
+                        <a id="en" href="">English</a>
+                    </div>
+                </div>
+
+                <div class="user">
+                    <button id="us_menu">
+                        <img id="us_icon" src="../images/User_Icon.png" alt="User">
+                    </button>
+                    <div class="us_opt">
+                        <a href="">Χρήστης</a>
+                        <a href="">Ρυθμίσεις</a>
+                        <a href="">Αποσύνδεση</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <main>
+
+        <div class="main_cont">
+
+            <div class="form-container">
+
+                <h2 class="title">Φόρμα Εξοδολογίου</h2>
+
+                <form class="form" action="preview.html" method="get" enctype="multipart/form-data">
+                    <div class="cont">
+                        <div class="form-group">
+                            <label for="expense-type">Επιλέξτε Τύπο Εξόδου:</label>
+                            <select id="expense-type" name="expense-type" required>
+                                <option value="">--Επιλέξτε--</option>
+                                <option value="fuel">Καύσιμα</option>
+                                <option value="parking">Πάρκινγκ</option>
+                                <option value="trabel">Ταξίδια</option>
+                                <option value="trabel">Γεύμα</option>
+                                <option value="fare">Διόδια</option>
+                                <option value="transportation">Ταξί/ΜΜΜ</option>
+                                <option value="other">Άλλο</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Ποσό(&euro;):</label>
+                            <input type="number" id="amount" name="amount" min="0" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="receipt">Ανέβασμα Δικαιολογητικών(pdf,word,jpeg...):</label>
+                            <input type="file" id="receipt" name="receipt" required>
+                        </div>
+                    </div>
+                    <div class="cont">
+                        <div class="form-group">
+                            <label for="wbs">Αντιστοίχιση WBS:</label>
+                            <input type="text" id="wbs-search" name="wbs-search" placeholder="Αναζήτηση WBS..."
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="percentage">Ποσοστό(%):</label>
+                            <input type="number" id="percentage" name="percentage" value="100" min="0" max="100"
+                                step="1" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="button">Προσθέστε WBS</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comments">Σχόλια:</label>
+                            <textarea id="comments" name="comments" rows="4"
+                                placeholder="Επιπλέον αιτιολόγηση..."></textarea>
+                        </div>
+
+                        <div class="button-cont">
+                            <button type="submit">Συνέχεια</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

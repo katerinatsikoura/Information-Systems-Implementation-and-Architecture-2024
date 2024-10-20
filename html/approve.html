@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Έγκριση Εξοδολογίου - Deloitte</title>
+    <link rel="icon" href="../images/Deloitte_Symbol.png">
+    <link rel="stylesheet" href="../css1/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <style>
+        .main_cont {
+            flex-direction: column;
+        } 
+
+        .box {
+            margin: 25px 0 50px 0;
+        }
+
+        /* Επιλογές */
+        .options {
+            width: 20%;
+        }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .opt input[type="radio"] {
+            display: none;
+        }
+
+        .opt label {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 1px 1px 5px rgb(103, 103, 103);
+            width: 100px;
+            height: 35px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .opt label:hover {
+            scale: 1.1;
+        }
+
+        .opt label[for^="reject"]:hover {
+            box-shadow: 0 0 5px #e11919;
+        }
+
+        .opt label[for^="approve"]:hover {
+            box-shadow: 0 0 5px #299a0d;
+        }
+
+        .opt label[for^="reject"] {
+            color: #e11919;
+            border: #e11919bc 2px solid;
+        }
+
+        .opt label[for^="approve"] {
+            color: #299a0d;
+            border: #2da70fbc 2px solid;
+        }
+
+        .opt input[id^="approve"]:checked~label[for^="approve"] {
+            background-color: #2da70f;
+            color: white;
+        }
+
+        .opt input[id^="reject"]:checked~label[for^="reject"] {
+            background-color: #e61212;
+            color: white;
+        }
+
+        .opt input[id^="reject"]:checked~.reason_cont .reason_input {
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        .reason_input {
+            height: 35px;
+            width: 150px;
+            padding: 0 8px;
+            font-family: inherit;
+            border: #ce1414bc 2px solid;
+            border-radius: 12px;
+            box-shadow: 1px 1px 5px rgb(103, 103, 103);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .reason_input:hover {
+            scale: 1.05;
+            box-shadow: 0 0 5px #e11919;
+        }
+
+        .reason_input:focus-visible {
+            border: #e30a0a 2.5px solid;
+            outline: none;
+            box-shadow: 0 0 5px #e11919;
+        }
+
+        .reason_input::placeholder {
+            color: #e11919;
+        }
+
+        /* Ενέργειες */
+        .act_cont {
+            height: 130px;
+            flex-wrap: wrap;
+            align-content: flex-end;
+        }
+
+        .actions {
+            width: 70%;
+        }
+
+        /* align items center */
+        .acts,
+        .act_but,
+        .b_el {
+            align-items: center;
+        }
+
+        .acts {
+            width: 100%;
+            justify-items: center;
+        }
+
+        .act {
+            width: 30%;
+            padding-left: 30px;
+        }
+
+        .act_but {
+            background-color: #26890d;
+            border: #26890dbc 2px solid;
+            border-radius: 25px;
+            box-shadow: 1px 1px 5px rgb(71, 71, 71);
+            height: 70px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .but_text {
+            font-size: 20px;
+            font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 5px rgb(71, 71, 71);
+            padding-right: 10px;
+        }
+
+        .but_text#text2 {
+            padding-right: 7px;
+        }
+
+        .but_icon {
+            height: 35px;
+        }
+
+        .but_icon#icon2 {
+            height: 42px;
+        }
+
+        .act_but:hover {
+            scale: 1.1;
+            background-color: #2da70f;
+            border-color: #2da70fab;
+            box-shadow: 2px 2px 5px #1f710a;
+        }
+        @media (max-width: 768px) {
+    .f_cont {
+        overflow-x: auto;
+    }
+
+    .table_cont {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .opt {
+        justify-content: center;
+    }
+
+    .reason_cont {
+        margin-top: 10px;
+    }
+
+    .act_but {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .but_text {
+        font-size: 16px;
+    }
+
+    .b_el {
+        align-items: center;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header">
+
+            <div class="head_left">
+                <a href="index.html">
+                    <img id="h_logo" src="../images/Deloitte_Logo.png" alt="Deloitte">
+                </a>
+
+                <div class="nav_bar">
+                    <ul class="nav_l">
+                        <li><a href="index.html">Αρχική</a></li>
+                        <li><a href="">Χρήστης</a></li>
+                        <li><a href="">Ρυθμίσεις</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="head_right">
+                <div class="search">
+                    <form>
+                        <input id="s_box" type="text" placeholder="Αναζήτηση..." autocomplete="off">
+                        <button id="s_but">
+                            <img id="s_img" src="../images/Search_Icon.png" alt="Search">
+                        </button>
+                    </form>
+                </div>
+
+                <div class="language">
+                    <button id="lang_menu">
+                        <img id="globe_icon" src="../images/Globe_Icon.png" alt="Switch Language">
+                    </button>
+                    <div class="lang_opt">
+                        <a id="gr" href="">Ελληνικά</a>
+                        <a id="en" href="">English</a>
+                    </div>
+                </div>
+
+                <div class="user">
+                    <button id="us_menu">
+                        <img id="us_icon" src="../images/User_Icon.png" alt="User">
+                    </button>
+                    <div class="us_opt">
+                        <a href="">Χρήστης</a>
+                        <a href="">Ρυθμίσεις</a>
+                        <a href="">Αποσύνδεση</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="main_cont">
+
+            <div class="cont act_cont">
+                <div class="actions">
+                    <div class="acts">
+                        <div class="act" id="save">
+                            <a href="ThirdPage.html">
+                                <button class="act_but" id="save">
+                                    <div class="b_el">
+                                        <span class="but_text" id="text1">Προσωρινή Αποθήκευση</span>
+                                        <img class="but_icon" src="../images/Save_Icon.png" alt="Προσωρινή Αποθήκευση">
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="act" id="submit">
+                            <a href="ThirdPage.html">
+                                <button class="act_but" id="submit">
+                                    <div class="b_el">
+                                        <span class="but_text" id="text2">Αποστολή Εξοδολογίου</span>
+                                        <img class="but_icon" id="icon2" src="../images/Submit_Icon.png"
+                                            alt="Τελική Υποβολή">
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="act" id="print">
+                            <a href="">
+                                <button class="act_but" id="print">
+                                    <div class="b_el">
+                                        <span class="but_text">Εκτύπωση</span>
+                                        <img class="but_icon" src="../images/Print_Icon.png" alt="Εκτύπωση">
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cont f_cont">
+
+                <div class="form">
+                    <ul class="box">
+                        <li>
+                            <div class="fh_cont">
+                                <div class="f_head">Εξοδολόγιο</div>
+                            </div>
+                            <div class="f_body">
+                                <div class="table_cont">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Έξοδο</th>
+                                                <th>Ποσό(&euro;)</th>
+                                                <th>Ημερομηνία</th>
+                                                <th>WBS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Καύσιμα</td>
+                                                <td>40&euro;</td>
+                                                <td>2024-05-01</td>
+                                                <td>389</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve1" name="options1">
+                                                        <input type="radio" id="reject1" name="options1">
+
+                                                        <label for="approve1">Έγκριση</label>
+                                                        <label for="reject1">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Πάρκινγκ</td>
+                                                <td>6&euro;</td>
+                                                <td>2024-05-01</td>
+                                                <td>389</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve2" name="options2">
+                                                        <input type="radio" id="reject2" name="options2">
+
+                                                        <label for="approve2">Έγκριση</label>
+                                                        <label for="reject2">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Καύσιμα</td>
+                                                <td>20&euro;</td>
+                                                <td>2024-05-05</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve3" name="options3">
+                                                        <input type="radio" id="reject3" name="options3">
+
+                                                        <label for="approve3">Έγκριση</label>
+                                                        <label for="reject3">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Πάρκινγκ</td>
+                                                <td>5&euro;</td>
+                                                <td>2024-05-05</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve4" name="options4">
+                                                        <input type="radio" id="reject4" name="options4">
+
+                                                        <label for="approve4">Έγκριση</label>
+                                                        <label for="reject4">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Γεύμα</td>
+                                                <td>30&euro;</td>
+                                                <td>2024-05-05</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve5" name="options5">
+                                                        <input type="radio" id="reject5" name="options5">
+
+                                                        <label for="approve5">Έγκριση</label>
+                                                        <label for="reject5">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Λοιπά</td>
+                                                <td>3&euro;</td>
+                                                <td>2024-05-08</td>
+                                                <td>389</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve6" name="options6">
+                                                        <input type="radio" id="reject6" name="options6">
+
+                                                        <label for="approve6">Έγκριση</label>
+                                                        <label for="reject6">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ταξίδι</td>
+                                                <td>65&euro;</td>
+                                                <td>2024-05-13</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve7" name="options7">
+                                                        <input type="radio" id="reject7" name="options7">
+
+                                                        <label for="approve7">Έγκριση</label>
+                                                        <label for="reject7">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ταξί/ΜΜΜ</td>
+                                                <td>14&euro;</td>
+                                                <td>2024-05-13</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve8" name="options8">
+                                                        <input type="radio" id="reject8" name="options8">
+
+                                                        <label for="approve8">Έγκριση</label>
+                                                        <label for="reject8">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ταξί/ΜΜΜ</td>
+                                                <td>13.50&euro;</td>
+                                                <td>2024-05-13</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve9" name="options9">
+                                                        <input type="radio" id="reject9" name="options9">
+
+                                                        <label for="approve9">Έγκριση</label>
+                                                        <label for="reject9">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ταξίδι</td>
+                                                <td>55&euro;</td>
+                                                <td>2024-05-14</td>
+                                                <td>454</td>
+                                                <td class="options">
+                                                    <div class="opt">
+                                                        <input type="radio" id="approve10" name="options10">
+                                                        <input type="radio" id="reject10" name="options10">
+
+                                                        <label for="approve10">Έγκριση</label>
+                                                        <label for="reject10">Απόρριψη</label>
+
+                                                        <div class="reason_cont">
+                                                            <input type="text" class="reason_input"
+                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αρχική</title>
+    <link rel="icon" href="../images/Deloitte_Symbol.png">
+    <link rel="stylesheet" href="../css1/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        padding: 20px;
+        margin-top: 45px;
+    }
+
+    .row {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 20x;
+    }
+
+    .row .button {
+        margin: 20px;
+    }
+
+    .row a {
+        text-decoration: none;
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        max-width: 500px;
+        max-height: 1000px;
+        border: none;
+        color: white;
+        padding: 80px 70px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 60px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -.24px;
+        transition: all .2s ease;
+
+        background-color: #26890d;
+        border: #26890dbc 2px solid;
+        box-shadow: 1px 1px 5px rgb(71, 71, 71);
+    }
+
+    .button:hover {
+        background-color: #2fad0f;
+        border: #2fad0fbc 2px solid;
+        color: black;
+        transform: scale(1.125);
+    }
+
+    .gif-image {
+        max-width: 100px;
+        max-height: 100px;
+        margin-right: 20px;
+    }
+    @media (max-width: 768px) {
+    .button {
+        max-width: 100%;
+        min-height: 100px;
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .gif-image {
+        max-width: 30px;
+        max-height: 30px;
+        margin-right: 5px;
+    }
+}
+</style>
+
+<body>
+
+    <header>
+
+        <div class="header">
+
+            <div class="head_left">
+                <a href="index.html">
+                    <img id="h_logo" src="../images/Deloitte_Logo.png" alt="Deloitte">
+                </a>
+
+                <div class="nav_bar">
+                    <ul class="nav_l">
+                        <li><a href="index.html">Αρχική</a></li>
+                        <li><a href="">Χρήστης</a></li>
+                        <li><a href="">Ρυθμίσεις</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="head_right">
+                <div class="search">
+                    <form>
+                        <input id="s_box" type="text" placeholder="Αναζήτηση..." autocomplete="off">
+                        <button id="s_but">
+                            <img id="s_img" src="../images/Search_Icon.png" alt="Search">
+                        </button>
+                    </form>
+                </div>
+
+                <div class="language">
+                    <button id="lang_menu">
+                        <img id="globe_icon" src="../images/Globe_Icon.png" alt="Switch Language">
+                    </button>
+                    <div class="lang_opt">
+                        <a id="gr" href="">Ελληνικά</a>
+                        <a id="en" href="">English</a>
+                    </div>
+                </div>
+
+                <div class="user">
+                    <button id="us_menu">
+                        <img id="us_icon" src="../images/User_Icon.png" alt="User">
+                    </button>
+                    <div class="us_opt">
+                        <a href="">Χρήστης</a>
+                        <a href="">Ρυθμίσεις</a>
+                        <a href="">Αποσύνδεση</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="row">
+
+                <a href="FirstPage.html"><button class="button">
+                        <img src="../images/Money.gif" alt="GIF Image" class="gif-image">
+                        ΑΝΑΡΤΗΣΗ ΝΕΟΥ ΕΞΟΔΟΥ</button></a>
+                <a href="preview.html"><button class="button">
+                        <img src="../images/Book.gif" alt="GIF Image" class="gif-image">
+                        ΠΡΟΒΟΛΗ ΕΞΟΔΟΛΟΓΙΟΥ</button></a>
+            </div>
+            <div class="row">
+                <a href="ThirdPage.html">
+                    <button class="button">
+                        <img src="../images/Check.gif" alt="GIF Image" class="gif-image">
+                        ΕΓΚΡΙΣΗ/ΑΠΟΡΡΙΨΗ ΕΞΟΔΟΛΟΓΙΟΥ</button></a>
+                <button class="button">
+                    <img src="../images/Stats.gif" alt="GIF Image" class="gif-image">
+                    ΕΚΔΟΣΗ ΣΤΑΤΙΣΤΙΚΩΝ</button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
