@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Προβολή Εξοδολογίων - Deloitte</title>
-    <link rel="icon" href="../images/Deloitte_Symbol.png">
+    <title>Προβολή Εξοδολογίων</title>
+    <link rel="icon" href="../images/Xpenser_logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css1/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <style>
         .b_el {
             width: 100%;
@@ -80,46 +80,31 @@
 
             <div class="head_left">
                 <a href="index.html">
-                    <img id="h_logo" src="../images/Deloitte_Logo.png" alt="Deloitte">
+                    <ul class="head_left_l">
+                    <li><img id="h_logo" src="../images/Xpenser_logo.png" alt="Xpenser logo"></li>
+                    <li id="h_name">XPENSER</li>
+                    </ul>
                 </a>
 
                 <div class="nav_bar">
                     <ul class="nav_l">
-                        <li><a href="index.html">Αρχική</a></li>
-                        <li><a href="">Χρήστης</a></li>
-                        <li><a href="">Ρυθμίσεις</a></li>
+                        <a href="index.html"><li>Home</li></a>
+                        <a href="FirstPage.html"><li>Post Expense</li></a>
+                        <a href="preview.html"><li>View Current Expensesheet</li></a>
+                        <a href="ThirdPage.html" id="current"><li>Review Expensesheets</li></a>
+                        <a href=""><li>View Processed Expensheets</li></a>
                     </ul>
                 </div>
             </div>
 
             <div class="head_right">
-                <div class="search">
-                    <form>
-                        <input id="s_box" type="text" placeholder="Αναζήτηση..." autocomplete="off">
-                        <button id="s_but">
-                            <img id="s_img" src="../images/Search_Icon.png" alt="Search">
-                        </button>
-                    </form>
-                </div>
-
-                <div class="language">
-                    <button id="lang_menu">
-                        <img id="globe_icon" src="../images/Globe_Icon.png" alt="Switch Language">
-                    </button>
-                    <div class="lang_opt">
-                        <a id="gr" href="">Ελληνικά</a>
-                        <a id="en" href="">English</a>
-                    </div>
-                </div>
 
                 <div class="user">
                     <button id="us_menu">
                         <img id="us_icon" src="../images/User_Icon.png" alt="User">
                     </button>
                     <div class="us_opt">
-                        <a href="">Χρήστης</a>
-                        <a href="">Ρυθμίσεις</a>
-                        <a href="">Αποσύνδεση</a>
+                        <a href="login.html">Αποσύνδεση</a>
                     </div>
                 </div>
             </div>

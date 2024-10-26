@@ -38,18 +38,27 @@ header {
 }
 
 #h_logo {
-    height: 35px;
-    padding: 25px 20px 20px;
+    height: 50px;
+    padding: 22px 15px 20px 10px;
 }
-
+#h_name {
+    padding: 20px 30px 20px 5px;
+    color: #249b07;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 1px #185705;
+}
 /* Ρυθμίσεις Πλοήγησης */
-.nav_bar {
+.nav_bar, 
+.head_left{
     height: 70px;
     position: relative;
     left: 10px;
 }
 
-.nav_l {
+.nav_l,
+.head_left_l {
     width: 100%;
     height: 100%;
     display: inline-flex;
@@ -60,9 +69,9 @@ header {
     margin: 0;
 }
 
-.nav_l li {
+.nav_l li{
     text-align: center;
-    padding: 24px 15px;
+    padding: 25px 15px;
     float: left;
 }
 
@@ -71,17 +80,19 @@ header {
     color: white;
 }
 
-.nav_l li:hover {
+.nav_l #current{
+    color: #2cb709;
+
+}
+
+.nav_l a:hover {
     padding-bottom: 19.5px;
-    border-bottom: 4.5px solid #87bd25;
+    border-bottom: 4.5px solid #2cb709;
+    color: #2cb709;
 }
 
-.nav_l li:hover a {
-    color: #87bd25;
-}
-
-.nav_l li a {
-    transition: color 0.3s;
+.nav_l a li{
+    transition: 0.3s;
 }
 
 /* Αναζήτηση */
