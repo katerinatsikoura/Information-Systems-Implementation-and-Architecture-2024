@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Προβολή Εξοδολογίων</title>
+    <link rel="icon" href="../images/Xpenser_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        .b_el {
+            width: 100%;
+        }
+
+        .box {
+            margin: 80px 0 50px 0;
+        }
+
+        .approved img {
+            display: none;
+        }
+
+        .approved img.active {
+            display: block;
+        }
+
+        .table td img {
+            height: 37px;
+        }
+
+        .details {
+            width: 15%;
+        }
+
+        .details .c_but {
+            background-color: white;
+            border: #26890dbd 2px solid;
+            border-radius: 25px;
+            box-shadow: 1px 1px 5px rgb(92, 92, 92);
+            width: 130px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .b_el {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .b_el #text {
+            color: #26890d;
+            font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
+            font-size: 16px;
+            padding-right: 5px;
+            padding-left: 2px;
+        }
+
+        .c_but:hover {
+            scale: 1.1 1.1;
+            box-shadow: 0px 0px 5px #26890d;
+        }
+
+        .c_but {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header">
+            <div class="head_left">
+                <a href="index.html">
+                    <ul class="head_left_l">
+                        <li><img id="h_logo" src="../images/Xpenser_logo.png" alt="Xpenser logo"></li>
+                        <li id="h_name">XPENSER</li>
+                    </ul>
+                </a>
+
+                <div class="nav_bar">
+                    <ul class="nav_l">
+                        <a href="index.html"><li>Home</li></a>
+                        <a href="FirstPage.html"><li>Post Expense</li></a>
+                        <a href="preview.html"><li>View Current Expensesheet</li></a>
+                        <a href="ThirdPage.html" id="current"><li>Review Expensesheets</li></a>
+                        <a href="processed.html"><li>View Processed Expensheets</li></a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="head_right">
+                <div class="user">
+                    <button id="us_menu">
+                        <img id="us_icon" src="../images/User_Icon.png" alt="User">
+                    </button>
+                    <div class="us_opt">
+                        <a href="login.html">Αποσύνδεση</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="main_cont">
+            <div class="f_cont">
+                <div class="form">
+                    <ul class="box">
+                        <li>
+                            <div class="fh_cont">
+                                <div class="f_head">Εξοδολόγια</div>
+                            </div>
+                            <div class="f_body">
+                                <div class="table_cont">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Εξοδολογίου</th>
+                                                <th>Ημερομηνία</th>
+                                                <th>Έγκριση από Μάνατζερ</th>
+                                                <th>Έγκριση από Λογιστήριο</th>
+                                                <th>Τελική Έγκριση</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="id">10</td>
+                                                <td>2024-10-31</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">9</td>
+                                                <td>2024-09-30</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">8</td>
+                                                <td>2024-08-30</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">7</td>
+                                                <td>2024-07-31</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">6</td>
+                                                <td>2024-06-30</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">5</td>
+                                                <td>2024-05-31</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">4</td>
+                                                <td>2024-04-30</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">3</td>
+                                                <td>2024-03-31</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">2</td>
+                                                <td>2024-02-28</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="id">1</td>
+                                                <td>2024-01-30</td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" class="active" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="approved">
+                                                    <img id="yes" class="active" src="../images/Approved_Icon.png" alt="Εγκρίθηκε">
+                                                    <img id="no" src="../images/Declined_Icon.png" alt="Απορρίφθηκε">
+                                                </td>
+                                                <td class="details">
+                                                    <a href="approve.html">
+                                                        <button class="c_but">
+                                                            <div class="b_el">
+                                                                <span id="text">Αναλυτικά</span>
+                                                            </div>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
