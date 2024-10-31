@@ -31,7 +31,6 @@
             width: 100%;
             padding: 50px 0;
             display: flex;
-            align-items: center;
         }
 
         .cont,
@@ -51,23 +50,21 @@
         }
 
         .form-group label {
+            font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
             font-size: 1.2rem;
             margin-bottom: 5px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 10px;
+        .form-group .inputtext{
+            font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
             font-size: 1.2rem;
+            margin-bottom: 5px;
+            line-height: 29px;
+            padding: 10px;
             border: 1px solid #000000;
             border-radius: 5px;
             box-sizing: border-box;
             width: 80%;
-        }
-
-        .form-group #receipt {
-            padding: 0;
         }
 
         .button-cont {
@@ -151,10 +148,10 @@
                 <div class="nav_bar">
                     <ul class="nav_l">
                         <a href="index.html"><li>Home</li></a>
-                        <a href="FirstPage.html" id="current"><li>Post Expense</li></a>
-                        <a href="preview.html"><li>View Current Expensesheet</li></a>
-                        <a href="ThirdPage.html"><li>Review Expensesheets</li></a>
-                        <a href="processed.html"><li>View Processed Expensheets</li></a>
+                        <a href="postXpns.html" id="current"><li>Post Expense</li></a>
+                        <a href="viewCurrentXpnsheet.html"><li>View Current Expensesheet</li></a>
+                        <a href="reviewXpnsheet.html"><li>Review Expensesheets</li></a>
+                        <a href="processXpnsheets.html"><li>View Processed Expensheets</li></a>
                     </ul>
                 </div>
             </div>
@@ -181,11 +178,17 @@
 
                 <h2 class="title">Φόρμα Εξοδολογίου</h2>
 
-                <form class="form" action="preview.html" method="get" enctype="multipart/form-data">
+                <form class="form" action="viewCurrentXpnsheet.html" method="get" enctype="multipart/form-data">
                     <div class="cont">
+
+                        <div class="form-group">
+                            <label for="date">Ημερομηνία:</label>
+                            <input type="date" class="inputtext" id="date" name="xpnsdate" value="2024-01-01" min="2024-01-01">
+                        </div>
+
                         <div class="form-group">
                             <label for="expense-type">Επιλέξτε Τύπο Εξόδου:</label>
-                            <select id="expense-type" name="expense-type" required>
+                            <select class="inputtext" id="expense-type" name="expense-type" required>
                                 <option value="">--Επιλέξτε--</option>
                                 <option value="fuel">Καύσιμα</option>
                                 <option value="parking">Πάρκινγκ</option>
@@ -199,23 +202,23 @@
 
                         <div class="form-group">
                             <label for="amount">Ποσό(&euro;):</label>
-                            <input type="number" id="amount" name="amount" min="0" step="0.1" required>
+                            <input type="number" class="inputtext" id="amount" name="amount" min="0" step="0.1" required>
                         </div>
 
                         <div class="form-group">
                             <label for="receipt">Ανέβασμα Δικαιολογητικών(pdf,word,jpeg...):</label>
-                            <input type="file" id="receipt" name="receipt" required>
+                            <input type="file" class="inputtext" id="receipt" name="receipt" required>
                         </div>
                     </div>
                     <div class="cont">
                         <div class="form-group">
                             <label for="wbs">Αντιστοίχιση WBS:</label>
-                            <input type="text" id="wbs-search" name="wbs-search" placeholder="Αναζήτηση WBS..."
+                            <input type="text" class="inputtext" id="wbs-search" name="wbs-search" placeholder="Αναζήτηση WBS..."
                                 required>
                         </div>
                         <div class="form-group">
                             <label for="percentage">Ποσοστό(%):</label>
-                            <input type="number" id="percentage" name="percentage" value="100" min="0" max="100"
+                            <input type="number" class="inputtext" id="percentage" name="percentage" value="100" min="0" max="100"
                                 step="1" required>
                         </div>
                         <div class="form-group">
@@ -224,7 +227,7 @@
 
                         <div class="form-group">
                             <label for="comments">Σχόλια:</label>
-                            <textarea id="comments" name="comments" rows="4"
+                            <textarea class="inputtext" id="comments" name="comments" rows="4"
                                 placeholder="Επιπλέον αιτιολόγηση..."></textarea>
                         </div>
 
