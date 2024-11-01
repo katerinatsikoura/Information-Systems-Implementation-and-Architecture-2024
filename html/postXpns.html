@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Φόρμα Εξόδου</title>
+    <title>Post New Expense</title>
     <link rel="icon" href="../images/Xpenser_logo.png">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,7 +163,7 @@
                         <img id="us_icon" src="../images/User_Icon.png" alt="User">
                     </button>
                     <div class="us_opt">
-                        <a href="login.html">Αποσύνδεση</a>
+                        <a href="login.html">Logout</a>
                     </div>
                 </div>
             </div>
@@ -176,63 +176,63 @@
 
             <div class="form-container">
 
-                <h2 class="title">Φόρμα Εξοδολογίου</h2>
+                <h2 class="title">Expense Form</h2>
 
                 <form class="form" action="viewCurrentXpnsheet.html" method="get" enctype="multipart/form-data">
                     <div class="cont">
 
                         <div class="form-group">
-                            <label for="date">Ημερομηνία:</label>
+                            <label for="date">Date:</label>
                             <input type="date" class="inputtext" id="date" name="xpnsdate" value="2024-01-01" min="2024-01-01">
                         </div>
 
                         <div class="form-group">
-                            <label for="expense-type">Επιλέξτε Τύπο Εξόδου:</label>
+                            <label for="expense-type">Choose Expense Type:</label>
                             <select class="inputtext" id="expense-type" name="expense-type" required>
-                                <option value="">--Επιλέξτε--</option>
-                                <option value="fuel">Καύσιμα</option>
-                                <option value="parking">Πάρκινγκ</option>
-                                <option value="trabel">Ταξίδια</option>
-                                <option value="trabel">Γεύμα</option>
-                                <option value="fare">Διόδια</option>
-                                <option value="transportation">Ταξί/ΜΜΜ</option>
-                                <option value="other">Άλλο</option>
+                                <option value="">--Choose--</option>
+                                <option value="fuel">Fuel</option>
+                                <option value="parking">Parking</option>
+                                <option value="trabel">Travel</option>
+                                <option value="trabel">Meal</option>
+                                <option value="fare">Toll</option>
+                                <option value="transportation">Taxi/Public Transport</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="amount">Ποσό(&euro;):</label>
+                            <label for="amount">Amount (&euro;):</label>
                             <input type="number" class="inputtext" id="amount" name="amount" min="0" step="0.1" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="receipt">Ανέβασμα Δικαιολογητικών(pdf,word,jpeg...):</label>
+                            <label for="receipt">Post Expense Receipt (pdf,word,jpeg...):</label>
                             <input type="file" class="inputtext" id="receipt" name="receipt" required>
                         </div>
                     </div>
                     <div class="cont">
                         <div class="form-group">
-                            <label for="wbs">Αντιστοίχιση WBS:</label>
-                            <input type="text" class="inputtext" id="wbs-search" name="wbs-search" placeholder="Αναζήτηση WBS..."
+                            <label for="wbs">Corresponding WBS:</label>
+                            <input type="text" class="inputtext" id="wbs-search" name="wbs-search" placeholder="Search WBS..."
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="percentage">Ποσοστό(%):</label>
+                            <label for="percentage">Percentage (%):</label>
                             <input type="number" class="inputtext" id="percentage" name="percentage" value="100" min="0" max="100"
                                 step="1" required>
                         </div>
                         <div class="form-group">
-                            <button type="button">Προσθέστε WBS</button>
+                            <button type="button">Add WBS</button>
                         </div>
 
                         <div class="form-group">
-                            <label for="comments">Σχόλια:</label>
+                            <label for="comments">Comments:</label>
                             <textarea class="inputtext" id="comments" name="comments" rows="4"
-                                placeholder="Επιπλέον αιτιολόγηση..."></textarea>
+                                placeholder="Addiotional Comments..."></textarea>
                         </div>
 
                         <div class="button-cont">
-                            <button type="submit">Συνέχεια</button>
+                            <button type="submit">Continue</button>
                         </div>
                     </div>
                 </form>

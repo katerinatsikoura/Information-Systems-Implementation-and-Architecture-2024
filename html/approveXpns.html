@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Έγκριση Εξοδολογίου</title>
+    <title>Review Expenses</title>
     <link rel="icon" href="../images/Xpenser_logo.png">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -251,7 +251,7 @@
                         <img id="us_icon" src="../images/User_Icon.png" alt="User">
                     </button>
                     <div class="us_opt">
-                        <a href="login.html">Αποσύνδεση</a>
+                        <a href="login.html">Logout</a>
                     </div>
                 </div>
             </div>
@@ -269,8 +269,8 @@
                             <a href="reviewXpnsheet.html">
                                 <button class="act_but" id="save">
                                     <div class="b_el">
-                                        <span class="but_text" id="text1">Προσωρινή Αποθήκευση</span>
-                                        <img class="but_icon" src="../images/Save_Icon.png" alt="Προσωρινή Αποθήκευση">
+                                        <span class="but_text" id="text1">Save Draft</span>
+                                        <img class="but_icon" src="../images/Save_Icon.png" alt="Save Draft">
                                     </div>
                                 </button>
                             </a>
@@ -279,9 +279,9 @@
                             <a href="reviewXpnsheet.html">
                                 <button class="act_but" id="submit">
                                     <div class="b_el">
-                                        <span class="but_text" id="text2">Αποστολή Εξοδολογίου</span>
+                                        <span class="but_text" id="text2">Submit Expensheet</span>
                                         <img class="but_icon" id="icon2" src="../images/Submit_Icon.png"
-                                            alt="Τελική Υποβολή">
+                                            alt="Submit Expensheet">
                                     </div>
                                 </button>
                             </a>
@@ -290,8 +290,8 @@
                             <a href="">
                                 <button class="act_but" id="print">
                                     <div class="b_el">
-                                        <span class="but_text">Εκτύπωση</span>
-                                        <img class="but_icon" src="../images/Print_Icon.png" alt="Εκτύπωση">
+                                        <span class="but_text">Print</span>
+                                        <img class="but_icon" src="../images/Print_Icon.png" alt="Print">
                                     </div>
                                 </button>
                             </a>
@@ -306,22 +306,22 @@
                     <ul class="box">
                         <li>
                             <div class="fh_cont">
-                                <div class="f_head">Εξοδολόγιο</div>
+                                <div class="f_head">Expensesheet</div>
                             </div>
                             <div class="f_body">
                                 <div class="table_cont">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Έξοδο</th>
-                                                <th>Ποσό(&euro;)</th>
-                                                <th>Ημερομηνία</th>
+                                                <th>Expense</th>
+                                                <th>Amount (&euro;)</th>
+                                                <th>Date</th>
                                                 <th>WBS</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Καύσιμα</td>
+                                                <td>Fuel</td>
                                                 <td>40&euro;</td>
                                                 <td>2024-05-01</td>
                                                 <td>389</td>
@@ -330,18 +330,18 @@
                                                         <input type="radio" id="approve1" name="options1">
                                                         <input type="radio" id="reject1" name="options1">
 
-                                                        <label for="approve1">Έγκριση</label>
-                                                        <label for="reject1">Απόρριψη</label>
+                                                        <label for="approve1">Approve</label>
+                                                        <label for="reject1">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason..." required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Πάρκινγκ</td>
+                                                <td>Parking</td>
                                                 <td>6&euro;</td>
                                                 <td>2024-05-01</td>
                                                 <td>389</td>
@@ -350,18 +350,18 @@
                                                         <input type="radio" id="approve2" name="options2">
                                                         <input type="radio" id="reject2" name="options2">
 
-                                                        <label for="approve2">Έγκριση</label>
-                                                        <label for="reject2">Απόρριψη</label>
+                                                        <label for="approve2">Approve</label>
+                                                        <label for="reject2">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Καύσιμα</td>
+                                                <td>Fuel</td>
                                                 <td>20&euro;</td>
                                                 <td>2024-05-05</td>
                                                 <td>454</td>
@@ -370,18 +370,18 @@
                                                         <input type="radio" id="approve3" name="options3">
                                                         <input type="radio" id="reject3" name="options3">
 
-                                                        <label for="approve3">Έγκριση</label>
-                                                        <label for="reject3">Απόρριψη</label>
+                                                        <label for="approve3">Approve</label>
+                                                        <label for="reject3">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Πάρκινγκ</td>
+                                                <td>Parking</td>
                                                 <td>5&euro;</td>
                                                 <td>2024-05-05</td>
                                                 <td>454</td>
@@ -390,18 +390,18 @@
                                                         <input type="radio" id="approve4" name="options4">
                                                         <input type="radio" id="reject4" name="options4">
 
-                                                        <label for="approve4">Έγκριση</label>
-                                                        <label for="reject4">Απόρριψη</label>
+                                                        <label for="approve4">Approve</label>
+                                                        <label for="reject4">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Γεύμα</td>
+                                                <td>Meal</td>
                                                 <td>30&euro;</td>
                                                 <td>2024-05-05</td>
                                                 <td>454</td>
@@ -410,18 +410,18 @@
                                                         <input type="radio" id="approve5" name="options5">
                                                         <input type="radio" id="reject5" name="options5">
 
-                                                        <label for="approve5">Έγκριση</label>
-                                                        <label for="reject5">Απόρριψη</label>
+                                                        <label for="approve5">Approve</label>
+                                                        <label for="reject5">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Λοιπά</td>
+                                                <td>Other</td>
                                                 <td>3&euro;</td>
                                                 <td>2024-05-08</td>
                                                 <td>389</td>
@@ -430,18 +430,18 @@
                                                         <input type="radio" id="approve6" name="options6">
                                                         <input type="radio" id="reject6" name="options6">
 
-                                                        <label for="approve6">Έγκριση</label>
-                                                        <label for="reject6">Απόρριψη</label>
+                                                        <label for="approve6">Approve</label>
+                                                        <label for="reject6">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Ταξίδι</td>
+                                                <td>Travel</td>
                                                 <td>65&euro;</td>
                                                 <td>2024-05-13</td>
                                                 <td>454</td>
@@ -450,18 +450,18 @@
                                                         <input type="radio" id="approve7" name="options7">
                                                         <input type="radio" id="reject7" name="options7">
 
-                                                        <label for="approve7">Έγκριση</label>
-                                                        <label for="reject7">Απόρριψη</label>
+                                                        <label for="approve7">Approve</label>
+                                                        <label for="reject7">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Ταξί/ΜΜΜ</td>
+                                                <td>Taxi/Public Transport</td>
                                                 <td>14&euro;</td>
                                                 <td>2024-05-13</td>
                                                 <td>454</td>
@@ -470,18 +470,18 @@
                                                         <input type="radio" id="approve8" name="options8">
                                                         <input type="radio" id="reject8" name="options8">
 
-                                                        <label for="approve8">Έγκριση</label>
-                                                        <label for="reject8">Απόρριψη</label>
+                                                        <label for="approve8">Approve</label>
+                                                        <label for="reject8">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Ταξί/ΜΜΜ</td>
+                                                <td>Taxi/Public Transport</td>
                                                 <td>13.50&euro;</td>
                                                 <td>2024-05-13</td>
                                                 <td>454</td>
@@ -490,18 +490,18 @@
                                                         <input type="radio" id="approve9" name="options9">
                                                         <input type="radio" id="reject9" name="options9">
 
-                                                        <label for="approve9">Έγκριση</label>
-                                                        <label for="reject9">Απόρριψη</label>
+                                                        <label for="approve9">Approve</label>
+                                                        <label for="reject9">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Ταξίδι</td>
+                                                <td>Travel</td>
                                                 <td>55&euro;</td>
                                                 <td>2024-05-14</td>
                                                 <td>454</td>
@@ -510,12 +510,12 @@
                                                         <input type="radio" id="approve10" name="options10">
                                                         <input type="radio" id="reject10" name="options10">
 
-                                                        <label for="approve10">Έγκριση</label>
-                                                        <label for="reject10">Απόρριψη</label>
+                                                        <label for="approve10">Approve</label>
+                                                        <label for="reject10">Reject</label>
 
                                                         <div class="reason_cont">
                                                             <input type="text" class="reason_input"
-                                                                placeholder="Αιτιολογία απόρριψης..." required>
+                                                                placeholder="Rejection Reason......" required>
                                                         </div>
                                                     </div>
                                                 </td>
