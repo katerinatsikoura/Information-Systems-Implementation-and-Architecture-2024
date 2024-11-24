@@ -8,12 +8,12 @@ public class Expense {
     private String date;
     private double amount;
     private String type;
-    private List<String> wbs;
+    private String wbs;
     private String receipt;
     private List<String> status;
     private String comments;
 
-    public Expense(int expenseId, String date, double amount, String type, List<String> wbs, String receipt, List<String> status, String comments) {
+    public Expense(int expenseId, String date, double amount, String type, String wbs, String receipt, List<String> status, String comments) {
         this.expenseId = expenseId;
         this.date = date;
         this.amount = amount;
@@ -57,11 +57,11 @@ public class Expense {
         this.type = type;
     }
 
-    public List<String> getWbs() {
+    public String getWbs() {
         return wbs;
     }
 
-    public void setWbs(List<String> wbs) {
+    public void setWbs(String wbs) {
         this.wbs = wbs;
     }
 

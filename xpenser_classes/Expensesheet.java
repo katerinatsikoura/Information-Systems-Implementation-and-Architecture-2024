@@ -1,6 +1,6 @@
 package xpenser_classes;
 
-import java.util.List;
+import java.util.*;
 
 public class Expensesheet {
     
@@ -18,7 +18,6 @@ public class Expensesheet {
         this.status = status;
     }
 
-    // Getters and Setters
     public int getExpensesheetId() {
         return expensesheetId;
     }
@@ -58,4 +57,5 @@ public class Expensesheet {
     public void setStatus(List<String> status) {
         this.status = status;
     }
+
 }
