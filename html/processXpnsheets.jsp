@@ -149,15 +149,11 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                         </tr>
                         <% } else { Connection conn = null; PreparedStatement
                         stmt = null; ResultSet rs = null; try {
-                        Class.forName("com.mysql.cj.jdbc.Driver"); //bale ta
-                        swsta gia th syndesh me th ba conn =
-                        DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database",
-                        "username", "password"); //bale * pou ta epilegei ola
-                        anti na ta grafeis ena ena //kai episis thewrw prepei na
-                        baleis k ena condition na einai to submitted true String
-                        sql = "SELECT ExpensesheetID, Date, ManagerApproval,
-                        AccountingApproval, FinalApproval FROM Expensesheets
-                        WHERE UserID = ?"; stmt = conn.prepareStatement(sql);
+                        Class.forName("com.mysql.cj.jdbc.Driver"); conn =
+                        DriverManager.getConnection("jdbc:mysql://195.251.249.131:3306/ismgroup16",
+                        "ismgroup16", "4p2zp3"); String sql = "SELECT * FROM
+                        Expensesheets WHERE expense_sheet_id = ? AND submitted =
+                        true" stmt = conn.prepareStatement(sql);
                         stmt.setString(1, userId); rs = stmt.executeQuery();
                         while (rs.next()) { String expenseId =
                         rs.getString("ExpensesheetID"); String date =
