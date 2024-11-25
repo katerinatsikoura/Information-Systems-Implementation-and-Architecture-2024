@@ -154,7 +154,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                         "ismgroup16", "4p2zp3"); String sql = "SELECT * FROM
                         Expensesheets WHERE expense_sheet_id = ? AND submitted =
                         true" stmt = conn.prepareStatement(sql);
-                        stmt.setString(1, userId); rs = stmt.executeQuery();
+                        stmt.setString(1, expense_sheet_id); rs = stmt.executeQuery();
                         while (rs.next()) { String expenseId =
                         rs.getString("ExpensesheetID"); String date =
                         rs.getString("Date"); //tha sou steilw pws to xw kanei
