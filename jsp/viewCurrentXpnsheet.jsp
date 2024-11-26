@@ -268,23 +268,35 @@
                                         <%
                                         for (Expense expense : expenses) {
                                         %>
-                                            <tr>
-                                                <td><%= expense.getType() %></td>
-                                                <td><%= expense.getAmount() %>&euro;</td>
-                                                <td><%= expense.getDate() %></td>
-                                                <td><%= expense.getWbs() %></td>
-                                                <td class="edit">
-                                                    <a href="postXpns.html">
-                                                        <button class="e_but">
-                                                            <div class="b_el">
-                                                                <span id="text">Edit</span>
-                                                                <img id="icon" src="../images/Edit_Icon.png"
-                                                                    alt="Edit">
-                                                            </div>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td><%= expense.getType() %></td>
+                                            <td><%= expense.getAmount() %>&euro;</td>
+                                            <td><%= expense.getDate() %></td>
+                                            <td><%= expense.getWbs() %></td>
+                                            <td class="edit">
+                                                <form action="postXpns.jsp" method="post">
+                                                    <button class="e_but">
+                                                        <div class="b_el">
+                                                            <span id="text">Edit</span>
+                                                            <img id="icon" src="../images/Edit_Icon.png" alt="Edit">
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                                <%
+                                                    request.setAttribute("expenseType", expense.getType());
+                                                    request.setAttribute("amount", expense.getAmount());
+                                                    request.setAttribute("date", expense.getDate());
+                                                    request.setAttribute("wbs", expense.getWbs());
+                                                    request.setAttribute("id", expense.getId());
+                                                    request.setAttribute("percent", expense.getPercent());
+                                                    request.setAttribute("wbs", expense.getWbs());
+                                                    request.setAttribute("comments", expense.getComments());
+                                                    request.setAttribute("URL", expense.getURL());
+                                                %>
+                                                <jsp:forward page="postXpns.jsp"/>
+                                            </td>
+                                        </tr>
+                                        
                                         <%
                                         }
                                         %>

@@ -16,9 +16,9 @@ public class ExpenseDAO {
         try {
             connection = db.getConnection();
 
-            String query = "SELECT e.type, e.amount, e.date, e.wbs " +
-                           "FROM expenses e " +
-                           "JOIN expense_sheets es ON e.expense_sheet_id = es.id " +
+            String query = "SELECT e.expense_type, e.amount, e.e_date, e.wbs " +
+                           "FROM expense e " +
+                           "JOIN expense_sheet es ON e.expense_sheet_id = es.expense_sheet_id " +
                            "WHERE es.user_id = ?";
 
             preparedStatement = connection.prepareStatement(query);
