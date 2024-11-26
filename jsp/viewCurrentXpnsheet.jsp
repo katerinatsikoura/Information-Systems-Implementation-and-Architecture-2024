@@ -1,13 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-String name = request.getParameter("Name");
-String surname = request.getParameter("Surname");
-String email = request.getParameter("Email");
-String username = request.getParameter("Username");
-String password = request.getParameter("Password");
-String confirm = request.getParameter("Confirm");
-String agreement = request.getParameter("Agreement");
-%>
 
 <!DOCTYPE html>
 <html lang="el">
@@ -270,10 +261,10 @@ String agreement = request.getParameter("Agreement");
                                         for (Expense expense : expenses) {
                                         %>
                                             <tr>
-                                                <td><%=this.expenseType%></td>
-                                                <td><%=this.amount%>&euro;</td>
-                                                <td><%=this.date%></td>
-                                                <td><%=this.wbs%></td>
+                                                <td><%=expenseType%></td>
+                                                <td><%=amount%>&euro;</td>
+                                                <td><%=date%></td>
+                                                <td><%=wbs%></td>
                                                 <td class="edit">
                                                     <a href="postXpns.html">
                                                         <button class="e_but">
@@ -302,16 +293,6 @@ String agreement = request.getParameter("Agreement");
             <div class="cont act_cont">
                 <div class="actions">
                     <div class="acts">
-                        <div class="act" id="save">
-                            <a href="">
-                                <button class="act_but" id="save">
-                                    <div class="b_el">
-                                        <span class="but_text" id="text1">Save Draft</span>
-                                        <img class="but_icon" src="../images/Save_Icon.png" alt="Save Draft">
-                                    </div>
-                                </button>
-                            </a>
-                        </div>
                         <div class="act" id="submit">
                             <button class="act_but" id="submit">
                                 <div class="b_el">
