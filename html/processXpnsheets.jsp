@@ -1,5 +1,8 @@
-<%@ page import="java.sql.*" %> <%@ page import="java.util.*" %> <%@ page
+<%@ page import="java.util.*" %> <%@ page
 language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="xpenser_classes.ExpenseActions" %>
+<%@ page import="xpenser_classes.ExpenseSheet" %>
+
 
 <!DOCTYPE html>
 <html lang="el">
@@ -142,35 +145,32 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                         </tr>
                       </thead>
                       <tbody>
-                        <% String userId = (String)
-                        session.getAttribute("userID"); if (userId == null) { %>
+                        <% int user_id = session.getAttribute("user_id"); 
+                          if (user_id == null) { 
+                        %>
+                          <tr>
+                            <td colspan="6">User ID not found. Please log in.</td>
+                          </tr>
+                        <% 
+                          } else {
+                              try {
+                                ExpenseActions expenseActions = new ExpenseActions();
+                                List<ExpenseSheet> expensesheets = expenseActions.getExpensesheetsByUser(user_id);
+                                if (expensesheets.isEmpty()) {
+                        %>
+                          <tr>
+                            <td colspan="6">No processed expensesheets found for this user.</td>
+                          </tr>
+                        <%
+                                } else { 
+                                  for (ExpenseSheet sheet : expensesheets) {
+                        %>
                         <tr>
-                          <td colspan="6">User ID not found. Please log in.</td>
-                        </tr>
-                        <% } else { Connection conn = null; PreparedStatement
-                        stmt = null; ResultSet rs = null; try {
-                        Class.forName("com.mysql.cj.jdbc.Driver"); conn =
-                        DriverManager.getConnection("jdbc:mysql://195.251.249.131:3306/ismgroup16",
-                        "ismgroup16", "4p2zp3"); String sql = "SELECT * FROM
-                        Expensesheets WHERE expense_sheet_id = ? AND submitted =
-                        true" stmt = conn.prepareStatement(sql);
-                        stmt.setString(1, expense_sheet_id); rs = stmt.executeQuery();
-                        while (rs.next()) { String expenseId =
-                        rs.getString("ExpensesheetID"); String date =
-                        rs.getString("Date"); //tha sou steilw pws to xw kanei
-                        egw gia na ginei se mia lista ola ta status String
-                        managerApproval = rs.getString("ManagerApproval");
-                        String accountingApproval =
-                        rs.getString("AccountingApproval"); String finalApproval
-                        = rs.getString("FinalApproval"); %> //tha prepei na
-                        kaneis ena loop opws auta sthn askhsh 2 px pou deixname
-                        olous tous user //wste na deixnei k ta palia ejodologia
-                        <tr>
-                          <td><%= expenseId %></td>
-                          <td><%= date %></td>
-                          <td><%= managerApproval %></td>
-                          <td><%= accountingApproval %></td>
-                          <td><%= finalApproval %></td>
+                          <td><%= sheet.getId() %></td>
+                          <td><%= sheet.getDate() %></td>
+                          <td><%= sheet.getStatus().get(0) %></td>
+                          <td><%= sheet.getStatus().get(1) %></td>
+                          <td><%= sheet.getStatus().get(2) %></td>
                           <td class="details">
                             <a href="approveXpns.html">
                               <button class="c_but">
@@ -181,11 +181,18 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                             </a>
                           </td>
                         </tr>
-                        <% } } catch (Exception e) { throw new Exception("Could
-                        not establish connection with the Database Server: " +
-                        e.getMessage()); } finally { if (rs != null) rs.close();
-                        if (stmt != null) stmt.close(); if (conn != null)
-                        conn.close(); } } %>
+                        <% 
+                                  }
+                                }
+                              } catch (Exception e) {
+                        %>
+                        <tr>
+                          <td colspan="6">Error retrieving expensesheets: <%= e.getMessage() %></td>
+                        </tr>
+                        <%
+                              }
+                            }
+                        %>      
                       </tbody>
                     </table>
                   </div>
@@ -198,3 +205,4 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     </main>
   </body>
 </html>
+
