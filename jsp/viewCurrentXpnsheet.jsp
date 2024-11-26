@@ -256,15 +256,23 @@
                                                 <th>WBS</th>
                                             </tr>
                                         </thead>
+                                        <%
+                                        Integer userId = (Integer) session.getAttribute("user_id");
+
+                                         if (userId != null) {
+                                            List<Expense> expenses = ExpenseDAO.getExpensesByUserId(userId);
+
+                                            if (!expenses.isEmpty()) {
+%>
                                         <tbody>
                                         <%
                                         for (Expense expense : expenses) {
                                         %>
                                             <tr>
-                                                <td><%=expenseType%></td>
-                                                <td><%=amount%>&euro;</td>
-                                                <td><%=date%></td>
-                                                <td><%=wbs%></td>
+                                                <td><%= expense.getType() %></td>
+                                                <td><%= expense.getAmount() %>&euro;</td>
+                                                <td><%= expense.getDate() %></td>
+                                                <td><%= expense.getWbs() %></td>
                                                 <td class="edit">
                                                     <a href="postXpns.html">
                                                         <button class="e_but">
@@ -281,6 +289,14 @@
                                         }
                                         %>
                                         </tbody>
+                                    <%
+                                        } else {
+                                            out.println("<p>No expenses found for this user.</p>");
+                                        }
+                                    } else {
+                                        out.println("<p>Error: User not logged in.</p>");
+                                    }
+                                    %>
                                     </table>
                                 </div>
 
