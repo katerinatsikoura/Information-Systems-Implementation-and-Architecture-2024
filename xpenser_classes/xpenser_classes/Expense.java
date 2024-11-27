@@ -8,6 +8,7 @@ public class Expense {
     private String url;
     private String comments;
     private int id;
+    private int expense_sheet_id;
 
 
 
@@ -19,7 +20,7 @@ public class Expense {
         this.wbs = wbs;
     }
 
-    public Expense(String type, double amount, java.sql.Date date, String wbs, String url, String comments, int id) {
+    public Expense(String type, double amount, java.sql.Date date, String wbs, String url, String comments, int id, int expense_sheet_id) {
         this.type = type;
         this.amount = amount;
         this.date = date;
@@ -27,6 +28,7 @@ public class Expense {
         this.url = url;
         this.comments = comments;
         this.id = id;
+        this.expense_sheet_id = expense_sheet_id;
     }
 
     public String getType() {
@@ -55,6 +57,10 @@ public class Expense {
 
     public int getId() {
         return this.id;
+    }
+
+    public int getExpenseSheetId() {
+        return this.expense_sheet_id;
     }
 
 }

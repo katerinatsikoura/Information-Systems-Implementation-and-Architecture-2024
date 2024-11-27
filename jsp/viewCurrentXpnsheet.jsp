@@ -1,4 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="xpenser_classes.ExpenseSheetDAO" %>
+<%@ page import="xpenser_classes.Expense" %>
+<%@ page import="xpenser_classes.ExpenseDAO" %>
+<%@ page import="xpenser_classes.ExpenseSheet" %>
+<%@ page import="xpenser_classes.DB" %>
+
+<%
+    String message = "";
+    boolean isSubmitted = false;
+
+    Integer userId = (Integer) session.getAttribute("user_id");
+
+    if (userId != null) {
+        int expenseSheetId = ExpenseSheetDAO.getExpenseSheetId(userId);
+
+        if (expenseSheetId != -1) {
+
+            if ("POST".equalsIgnoreCase(request.getMethod())) {
+                boolean submissionSuccess = ExpenseSheetDAO.makeSubmission(expenseSheetId);
+
+                if (submissionSuccess) {
+                    response.sendRedirect("processXpnsheets.jsp");
+                    return;
+                } else {
+                    message = "Failed to update the expense sheet.";
+                }
+            }
+        } else {
+            message = "No active expense sheet found or already submitted.";
+        }
+    } else {
+        message = "User not logged in.";
+    }
+%>
 
 <!DOCTYPE html>
 <html lang="el">
@@ -320,19 +354,20 @@
 
             <div class="cont act_cont">
                 <div class="actions">
-                    <div class="acts">
-                        <div class="act" id="submit">
-                            <button class="act_but" id="submit">
-                                <div class="b_el">
-                                    <span class="but_text" id="text2">Final Submit</span>
-                                    <img class="but_icon" id="icon2" src="../images/Submit_Icon.png"
-                                        alt="Final Submit">
-                                </div>
-                            </button>
+                    <form method="POST" action="viewCurrentXpnsheet.jsp">
+                        <div class="acts">
+                            <div class="act">
+                                <button type="submit" class="act_but" id="submit" <% if(isSubmitted) { %>disabled<% } %> >
+                                    <div class="b_el">
+                                        <span class="but_text" id="text2">Final Submit</span>
+                                        <img class="but_icon" id="icon2" src="../images/Submit_Icon.png" alt="Final Submit">
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
+            </div> 
         </div>
     </main>
 
