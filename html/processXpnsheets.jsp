@@ -1,7 +1,7 @@
 <%@ page import="java.util.*" %> <%@ page
 language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="xpenser_classes.ExpenseActions" %>
-<%@ page import="xpenser_classes.ExpenseSheet" %>
+<%@ page import="xpenser_classes.Expensesheet" %>
 
 
 <!DOCTYPE html>
@@ -145,8 +145,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                         </tr>
                       </thead>
                       <tbody>
-                        <% int user_id = session.getAttribute("user_id"); 
-                          if (user_id == null) { 
+                        <% 
+                            int user_id = session.getAttribute("user_id"); 
+                            if (user_id == null) { 
                         %>
                           <tr>
                             <td colspan="6">User ID not found. Please log in.</td>
@@ -155,7 +156,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                           } else {
                               try {
                                 ExpenseActions expenseActions = new ExpenseActions();
-                                List<ExpenseSheet> expensesheets = expenseActions.getExpensesheetsByUser(user_id);
+                                List<ExpenseSheet> expensesheets = expenseActions.getProcessedExpensesheets(user_id);
                                 if (expensesheets.isEmpty()) {
                         %>
                           <tr>
@@ -166,7 +167,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                                   for (ExpenseSheet sheet : expensesheets) {
                         %>
                         <tr>
-                          <td><%= sheet.getId() %></td>
+                          <td><%= sheet.getExpensesheetId() %></td>
                           <td><%= sheet.getDate() %></td>
                           <td><%= sheet.getStatus().get(0) %></td>
                           <td><%= sheet.getStatus().get(1) %></td>
