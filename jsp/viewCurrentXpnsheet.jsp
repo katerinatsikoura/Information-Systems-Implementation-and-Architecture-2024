@@ -297,7 +297,7 @@
                                             List<Expense> expenses = ExpenseDAO.getExpensesByUserId(userId);
 
                                             if (!expenses.isEmpty()) {
-%>
+                                        %>
                                         <tbody>
                                         <%
                                         for (Expense expense : expenses) {
@@ -308,6 +308,7 @@
                                             <td><%= expense.getDate() %></td>
                                             <td><%= expense.getWbs() %></td>
                                             <td class="edit">
+                                                <% if (!isSubmitted) { %>
                                                 <form action="postXpns.jsp" method="post">
                                                     <button class="e_but">
                                                         <div class="b_el">
@@ -316,16 +317,16 @@
                                                         </div>
                                                     </button>
                                                 </form>
-                                                <%
+                                                <% 
                                                     request.setAttribute("expenseType", expense.getType());
                                                     request.setAttribute("amount", expense.getAmount());
                                                     request.setAttribute("date", expense.getDate());
                                                     request.setAttribute("wbs", expense.getWbs());
                                                     request.setAttribute("id", expense.getId());
                                                     request.setAttribute("percent", expense.getPercent());
-                                                    request.setAttribute("wbs", expense.getWbs());
                                                     request.setAttribute("comments", expense.getComments());
                                                     request.setAttribute("URL", expense.getURL());
+                                                }
                                                 %>
                                                 <jsp:forward page="postXpns.jsp"/>
                                             </td>
