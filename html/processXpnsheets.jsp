@@ -1,5 +1,5 @@
-<%@ page import="java.util.*" %> <%@ page
-language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="xpenser_classes.ExpenseActions" %>
 <%@ page import="xpenser_classes.Expensesheet" %>
 
@@ -146,8 +146,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                       </thead>
                       <tbody>
                         <% 
-                            int user_id = session.getAttribute("user_id"); 
-                            if (user_id == null) { 
+                            User user = (User)session.getAttribute("user");
+                            if (user == null) { 
                         %>
                           <tr>
                             <td colspan="6">User ID not found. Please log in.</td>
@@ -155,6 +155,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
                         <% 
                           } else {
                               try {
+                                int user_id = user.getUserId();
                                 ExpenseActions expenseActions = new ExpenseActions();
                                 List<ExpenseSheet> expensesheets = expenseActions.getProcessedExpensesheets(user_id);
                                 if (expensesheets.isEmpty()) {
