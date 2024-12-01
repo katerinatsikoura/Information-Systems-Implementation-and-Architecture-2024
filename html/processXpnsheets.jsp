@@ -146,7 +146,7 @@
                       </thead>
                       <tbody>
                         <% 
-                            User user = (User)session.getAttribute("user");
+                            User user = (User)session.getAttribute("userObj2024");
                             if (user == null) { 
                         %>
                           <tr>
