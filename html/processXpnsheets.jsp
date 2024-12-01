@@ -3,6 +3,21 @@
 <%@ page import="xpenser_classes.ExpenseActions" %>
 <%@ page import="xpenser_classes.Expensesheet" %>
 
+<%
+Object userObj = session.getAttribute("userObj2024");
+if (userObj == null) {
+    request.setAttribute("message", "User ID not found. Please log in.");
+    request.getRequestDispatcher("login.jsp").forward(request, response);
+    return;
+}
+User user = (User) userObj;
+int user_id = user.getUserId();
+ExpenseActions expenseActions = new ExpenseActions();
+List<ExpenseSheet> expensesheets = expenseActions.getProcessedExpensesheets(user_id);
+boolean isEmpty = false;
+if (expensesheets.isEmpty()) {
+  isEmpty= true;
+}
 
 <!DOCTYPE html>
 <html lang="el">
@@ -145,27 +160,13 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% 
-                            User user = (User)session.getAttribute("userObj2024");
-                            if (user == null) { 
-                        %>
-                          <tr>
-                            <td colspan="6">User ID not found. Please log in.</td>
-                          </tr>
-                        <% 
-                          } else {
-                              try {
-                                int user_id = user.getUserId();
-                                ExpenseActions expenseActions = new ExpenseActions();
-                                List<ExpenseSheet> expensesheets = expenseActions.getProcessedExpensesheets(user_id);
-                                if (expensesheets.isEmpty()) {
-                        %>
+                      <%if (isEmpty) {
                           <tr>
                             <td colspan="6">No processed expensesheets found for this user.</td>
                           </tr>
                         <%
-                                } else { 
-                                  for (ExpenseSheet sheet : expensesheets) {
+                          } else { 
+                              for (ExpenseSheet sheet : expensesheets) {
                         %>
                         <tr>
                           <td><%= sheet.getExpensesheetId() %></td>
@@ -184,17 +185,9 @@
                           </td>
                         </tr>
                         <% 
-                                  }
-                                }
-                              } catch (Exception e) {
-                        %>
-                        <tr>
-                          <td colspan="6">Error retrieving expensesheets: <%= e.getMessage() %></td>
-                        </tr>
-                        <%
                               }
-                            }
-                        %>      
+                          }
+                        %>     
                       </tbody>
                     </table>
                   </div>
