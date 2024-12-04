@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="xpenser_classes.ExpenseActions" %>
 <%@ page import="xpenser_classes.Expensesheet" %>
+<%@ page import="xpenser_classes.User" %>
 
 <%
 Object userObj = session.getAttribute("userObj2024");
@@ -191,9 +192,7 @@ if (expensesheets.isEmpty()) {
                         }
                       } catch (Exception e) {
                       %>
-                        <tr>
-                          <td colspan="6">Error retrieving expensesheets: <%= e.getMessage() %></td>
-                        </tr>     
+                      <div class="alert alert-danger text-center" role="alert">Error retrieving expensesheets: <%= e.getMessage() %></div>    
                       <%
                       }
                       %>
