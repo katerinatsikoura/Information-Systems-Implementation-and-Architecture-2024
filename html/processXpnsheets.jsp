@@ -160,14 +160,16 @@ if (expensesheets.isEmpty()) {
                         </tr>
                       </thead>
                       <tbody>
-                      <%if (isEmpty) {
+                      <% try {
+                        if (isEmpty) {
+                      %>
                           <tr>
                             <td colspan="6">No processed expensesheets found for this user.</td>
                           </tr>
-                        <%
-                          } else { 
-                              for (ExpenseSheet sheet : expensesheets) {
-                        %>
+                      <%
+                        } else { 
+                          for (ExpenseSheet sheet : expensesheets) {
+                      %>
                         <tr>
                           <td><%= sheet.getExpensesheetId() %></td>
                           <td><%= sheet.getDate() %></td>
@@ -184,10 +186,17 @@ if (expensesheets.isEmpty()) {
                             </a>
                           </td>
                         </tr>
-                        <% 
-                              }
+                      <% 
                           }
-                        %>     
+                        }
+                      } catch (Exception e) {
+                      %>
+                        <tr>
+                          <td colspan="6">Error retrieving expensesheets: <%= e.getMessage() %></td>
+                        </tr>     
+                      <%
+                      }
+                      %>
                       </tbody>
                     </table>
                   </div>
@@ -200,4 +209,3 @@ if (expensesheets.isEmpty()) {
     </main>
   </body>
 </html>
-
