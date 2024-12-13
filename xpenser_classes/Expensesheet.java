@@ -8,9 +8,9 @@ public class Expensesheet {
     private int userId;
     private String date;
     private List<Expense> expenseList;
-    private List<String> status;
+    private List<Integer> status;
 
-    public Expensesheet(int expensesheetId, int userId, String date, List<Expense> expenseList, List<String> status) {
+    public Expensesheet(int expensesheetId, int userId, String date, List<Expense> expenseList, List<Integer> status) {
         this.expensesheetId = expensesheetId;
         this.userId = userId;
         this.date = date;
@@ -50,11 +50,11 @@ public class Expensesheet {
         this.expenseList = expenseList;
     }
 
-    public List<String> getStatus() {
+    public List<Integer> getStatus() {
         return status;
     }
 
-    public void setStatus(List<String> status) {
+    public void setStatus(List<Integer> status) {
         this.status = status;
     }
 
