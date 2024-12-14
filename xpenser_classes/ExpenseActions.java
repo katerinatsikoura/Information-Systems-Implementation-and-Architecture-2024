@@ -55,11 +55,10 @@ public class ExpenseActions {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM expense_sheet WHERE es_date >= DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH" +
-        ", '%Y-%m-01') AND es_date < DATE_FORMAT(CURDATE(), '%Y-%m-01') AND submitted = ?";
+        ", '%Y-%m-01') AND es_date < DATE_FORMAT(CURDATE(), '%Y-%m-01') AND submitted = 1";
 
         try{
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, 1);
             rs = stmt.executeQuery();
 
             while(rs.next()) {
@@ -94,7 +93,7 @@ public class ExpenseActions {
 		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM user WHERE user_id = ?";
+        String sql = "SELECT * FROM user2 WHERE id = ?";
         int user_id = es.getUserId();
    
         try{
@@ -103,9 +102,9 @@ public class ExpenseActions {
             rs = stmt.executeQuery();
 
             while(rs.next()) {
-                String name = rs.getString("user_name");
-                String username = rs.getString("user_username");
-                int password = rs.getInt("passkey");
+                String name = rs.getString("name");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
                 String role = rs.getString("role");
 
                 user = new User(user_id, name, username, password, role);
