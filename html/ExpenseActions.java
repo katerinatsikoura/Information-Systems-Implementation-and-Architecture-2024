@@ -160,50 +160,42 @@ public class ExpenseActions {
 
     }
 
-    public List<Expensesheet> getProcessedExpensesheets(int user_id) {
+    public List<Expensesheet> getProcessedExpensesheets(String passkey) throws Exception {
         List<Expensesheet> expensesheets = new ArrayList<>();
-        Connection conn = null;
+        List<Integer> status = new ArrayList<>();
+        DB db = new DB();
+        Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Expensesheets WHERE user_id = ?  AND submitted = 1";
+        String sql = "SELECT * FROM expense_sheet WHERE passkey = ?  AND submitted = 1";
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://195.251.249.131:3306/ismgroup16", "ismgroup16", "4p2zp3");
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, user_id);
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, passkey);
             rs = stmt.executeQuery();
+
             while (rs.next()) {
                 int es_id = rs.getInt("expense_sheet_id");
-                int userid = rs.getInt("user_id");
+                String passKey = rs.getString("passkey");
                 String date = rs.getString("es_date");
-                List<String> status = Arrays.asList(
-                        rs.getString("manager_approved"),
-                        rs.getString("accounting_approved"),
-                        rs.getString("approved"));
+                status = Arrays.asList(
+                        rs.getInt("manager_approved"),
+                        rs.getInt("accounting_approved"),
+                        rs.getInt("approved"));
+                ;
 
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
-                expensesheets.add(new Expensesheet(es_id, userid, date, expenses, status));
+                expensesheets.add(new Expensesheet(es_id, passKey, date, expenses, status));
                 // tha prepei na kaneis ena loop opws auta sthn askhsh 2 px pou deixname olous
                 // tous user //wste na deixnei k ta palia ejodologia
             }
+            rs.close();
+            stmt.close();
 
-        } catch (SQLException e) {
-            System.err.println(e);
-        } catch (ClassNotFoundException e) {
-            System.err.println(e);
+        } catch (Exception e) {
+            throw new Exception("Error getting processed expensesheets: " + e.getMessage(), e);
         } finally {
-            // Κλείσιμο των πόρων
-            try {
-                if (rs != null)
-                    rs.close();
-                if (stmt != null)
-                    stmt.close();
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
+            db.close();
         }
         return expensesheets;
     }
