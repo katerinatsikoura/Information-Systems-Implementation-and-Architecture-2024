@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ page import="xpenser_classes.*" %>
 
 <!DOCTYPE html>
 <html lang="el">
 
-<header>
-
+    <header>
         <div class="header">
-
             <div class="head_left">
                 <a href="index_Xpenser.html">
                     <ul class="head_left_l">
@@ -15,17 +14,41 @@ pageEncoding="UTF-8"%>
                     <li id="h_name">XPENSER</li>
                     </ul>
                 </a>
+<%
+try {
+	User user = (User)session.getAttribute("userObj"); 
+	if (user == null) {
+%>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="alertbox alertbox-danger" role="alert">You are not authorized to access this resource. Please login.</div>
+    </main>
+<%
+    } else {
+%>
 
                 <div class="nav_bar">
                     <button class="nav-toggle" aria-label="Toggle navigation">
                         <span class="hamburger-icon">&#9776;</span> <!-- Font Awesome icon or similar -->
                     </button>
                     <ul class="nav_l">
-                        <a href="index_Xpenser.html"><li>Home</li></a>
-                        <a href="postXpns.html"><li>Post Expense</li></a>
-                        <a href="viewCurrentXpnsheet.html"><li>View Current Expensesheet</li></a>
-                        <a href="reviewXpnsheet.html" id="current"><li>Review Expensesheets</li></a>
-                        <a href="processXpnsheets.html"><li>View Processed Expensheets</li></a>
+                        <a href="index_Xpenser.jsp" class="<%= request.getRequestURI().contains("index_Xpenser.jsp") ? "current" : "" %>"><li>Home</li></a>
+<%
+        if (user.getRole().equals("Employee")) {
+%>
+                        <a href="postXpns.jsp" class="<%= request.getRequestURI().contains("postXpns.jsp") ? "current" : "" %>"><li>Post Expense</li></a>
+                        <a href="viewCurrentXpnsheet.jsp" class="<%= request.getRequestURI().contains("viewCurrentXpnsheet.jsp") ? "current" : "" %>"><li>View Current Expensesheet</li></a>
+                        <a href="processXpnsheets.jsp" class="<%= request.getRequestURI().contains("processXpnsheets.jsp") ? "current" : "" %>"><li>View Processed Expensheets</li></a>
+<%
+        } else {
+%>
+                        <a href="reviewXpnsheet.jsp" class="<%= request.getRequestURI().contains("reviewXpnsheet.jsp") ? "current" : "" %>"><li>Review Expensesheets</li></a>
+<%
+        }
+    }
+%>                                     
                     </ul>
                 </div>
             </div>
@@ -37,14 +60,25 @@ pageEncoding="UTF-8"%>
                         <img id="us_icon" src="<%=request.getContextPath() %>/images/User_Icon.png" alt="User">
                     </button>
                     <div class="us_opt">
-                        <a href="login.html">Logout</a>
+                        <ul>
+                            <li id="passkey"><%= user.getPasskey()%></li>
+                            <li><a href="login.jsp">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
     </header>
-
+<%
+} catch (Exception e) {
+    System.err.println("Error: " + e.getMessage());
+    e.printStackTrace();
+%>
+            <div class="alertbox alertbox-danger" role="alert">Error retrieving expensesheets: <%= e.getMessage() != null ? e.getMessage() : "Unknown error" %></div>
+<%
+}
+%>
 </html>
 
 <script>

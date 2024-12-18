@@ -1,8 +1,7 @@
 package xpenser_classes;
-
 import java.util.*;
 
-public class Expense {
+public class Expenseold {
     
     private int expenseId;
     private String date;
@@ -13,7 +12,7 @@ public class Expense {
     private List<Integer> status;
     private String comments;
 
-    public Expense(int expenseId, String date, double amount, String type, int wbs, String receipt, List<Integer> status, String comments) {
+    public Expenseold(int expenseId, String date, double amount, String type, int wbs, String receipt, List<Integer> status, String comments) {
         this.expenseId = expenseId;
         this.date = date;
         this.amount = amount;
@@ -30,14 +29,6 @@ public class Expense {
     }
 
     public void setExpenseId(int expenseId) {
-        this.expenseId = expenseId;
-    }
-
-    public int getExpenseSheetId() {
-        return expenseId;
-    }
-
-    public void setExpenseSheetId(int expenseId) {
         this.expenseId = expenseId;
     }
 

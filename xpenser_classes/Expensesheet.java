@@ -5,14 +5,14 @@ import java.util.*;
 public class Expensesheet {
     
     private int expensesheetId;
-    private int userId;
+    private String userPasskey;
     private String date;
     private List<Expense> expenseList;
     private List<Integer> status;
 
-    public Expensesheet(int expensesheetId, int userId, String date, List<Expense> expenseList, List<Integer> status) {
+    public Expensesheet(int expensesheetId, String userPasskey, String date, List<Expense> expenseList, List<Integer> status) {
         this.expensesheetId = expensesheetId;
-        this.userId = userId;
+        this.userPasskey = userPasskey;
         this.date = date;
         this.expenseList = expenseList;
         this.status = status;
@@ -26,12 +26,12 @@ public class Expensesheet {
         this.expensesheetId = expensesheetId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getuserPasskey() {
+        return userPasskey;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setuserPasskey(String userPasskey) {
+        this.userPasskey = userPasskey;
     }
 
     public String getDate() {

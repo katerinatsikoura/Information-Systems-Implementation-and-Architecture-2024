@@ -114,8 +114,8 @@ pageEncoding="UTF-8"%>
     
 <%
 try {
-	//User user = (User)session.getAttribute("userObj2024"); 
-    User user = new User(1, "Katerina Tsikoura", "m00001", "katerina123", "manager");
+	User user = (User)session.getAttribute("userObj"); 
+    //User user = new User("Katerina Tsikoura", "kat@gmail.com", "Manager", "m000001");
 	if (user == null) {
 %>
 
@@ -123,7 +123,7 @@ try {
 
 <%
     } else {
-        if (user.getRole().equals("user")) {
+        if (user.getRole().equals("Employee")) {
 %>
 
     <div class="alertbox alertbox-danger" role="alert">You are not authorized to access this resource.</div>
@@ -173,7 +173,7 @@ try {
 %>
                                             <tr id="row">
                                                 <td><%= sheet.getExpensesheetId() %></td>
-                                                <td><%= u.getName() %></td>
+                                                <td><%= u.getFullname() %></td>
                                                 <td><%= wbs.toString().replaceAll("[\\[\\]]", "") %></td>
                                                 <td><%= sheet.getDate() %></td>
                                                 <td><%= ea.getStatusIcon(sheet.getStatus().get(0), request.getContextPath()) %></td>

@@ -41,12 +41,11 @@ header {
 }
 
 #h_logo {
-    height: 5vw; /* Responsive logo height */
-    max-height: 50px;
-    padding: 22px 15px 20px 10px;
+    height: 50px;
+    padding: 5px 15px 0 10px;
 }
 #h_name {
-    padding: 20px 15px 20px 5px;
+    padding: 0 15px 0 5px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     font-size: 2.5rem;
@@ -86,6 +85,10 @@ header {
     align-items: center;
 }
 
+.head_left_l li{
+    max-height: 70px;
+}
+
 .nav_bar a,
 .head_left a{
     height: inherit;
@@ -108,7 +111,7 @@ header {
     position: relative; /* Needed for the box-shadow effect */
 }
 
-.nav_l #current{
+.nav_l .current{
     color: #2cb709;
 }
 
@@ -117,7 +120,8 @@ header {
     color: #2cb709;
 }
 
-.nav_l a li{
+.nav_l a li,
+.head_left_l li{
     transition: all 0.3s;
 }
 
@@ -157,12 +161,26 @@ header {
     transition-duration: 0.3s;
 }
 
-.us_opt a {
-    display: block;
-    padding: 5px;
+.us_opt ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.us_opt li, .us_opt a{
     font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
     font-size: 14px;
     color: white;
+}
+
+.us_opt #passkey{
+    padding: 10px 10px 5px 10px;
+    font-weight: bold;
+}
+
+.us_opt a {
+    display: block;
+    padding: 10px;
     border-radius: 5px;
     text-decoration: none;
     transition-duration: 0.3s;
@@ -184,16 +202,21 @@ header {
 }
 
 @media (max-width: 1200px) {
-
+ 
     .nav_l li{
-        font-size: 15px; /* Responsive font size */
+        font-size: 15px;
     }
+
+    #h_name{
+        font-size: 2.2rem;
+    }
+
+    #h_logo{
+        height: 45px;
+    } 
 }
 
 @media (max-width: 768px) {
-    #h_logo {
-        height: 8vw; /* Adjust logo size */
-    }
 
     .nav_l li {
         padding: 1vh 0.5vw; /* Smaller padding */
