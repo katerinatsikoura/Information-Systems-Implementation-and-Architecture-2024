@@ -160,23 +160,23 @@ public class ExpenseActions {
 
     }
 
-    public List<Expensesheet> getProcessedExpensesheets(String passkey) throws Exception {
+    public List<Expensesheet> getProcessedExpensesheets(String userPasskey) throws Exception {
         List<Expensesheet> expensesheets = new ArrayList<>();
         List<Integer> status = new ArrayList<>();
         DB db = new DB();
         Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM expense_sheet WHERE passkey = ?  AND submitted = 1";
+        String sql = "SELECT * FROM expense_sheet WHERE user_passkey = ?  AND submitted = 1";
 
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, passkey);
+            stmt.setString(1, userPasskey);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int es_id = rs.getInt("expense_sheet_id");
-                String passKey = rs.getString("passkey");
+                String passkey = rs.getString("user_passkey");
                 String date = rs.getString("es_date");
                 status = Arrays.asList(
                         rs.getInt("manager_approved"),
@@ -185,9 +185,7 @@ public class ExpenseActions {
                 ;
 
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
-                expensesheets.add(new Expensesheet(es_id, passKey, date, expenses, status));
-                // tha prepei na kaneis ena loop opws auta sthn askhsh 2 px pou deixname olous
-                // tous user //wste na deixnei k ta palia ejodologia
+                expensesheets.add(new Expensesheet(es_id, passkey, date, expenses, status));
             }
             rs.close();
             stmt.close();
