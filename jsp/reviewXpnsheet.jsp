@@ -17,6 +17,8 @@ pageEncoding="UTF-8"%>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
+        rel="stylesheet">
     
     <style>
 
@@ -84,25 +86,6 @@ pageEncoding="UTF-8"%>
             line-height: 58px;
         }
 
-        /* Alert Container */
-        .alertbox {
-            padding: 15px 20px;
-            margin: 10px 0;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
-        }
-
-        /* Danger (Error) Alert */
-        .alertbox-danger {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-            text-align: center;
-        }  
-
     </style>
 </head>
 
@@ -115,8 +98,8 @@ pageEncoding="UTF-8"%>
 <%
 try {
 	User user = (User)session.getAttribute("userObj"); 
-    //User user = new User("Katerina Tsikoura", "kat@gmail.com", "Manager", "m000001");
-	if (user == null) {
+    
+    if (user == null) {
 %>
 
     <div class="alertbox alertbox-danger" role="alert">You are not authorized to access this resource. Please login.</div>
@@ -183,7 +166,7 @@ try {
 <%
                 if (sheet.getStatus().get(2)!= 0 && sheet.getStatus().get(2)!= 1) {
 %>
-                                                    <a href="approveXpns.html">
+                                                    <a href="approveXpns.jsp">
                                                     <button class="c_but">
                                                         <div class="b_el">
                                                             <span id="text">Review</span>

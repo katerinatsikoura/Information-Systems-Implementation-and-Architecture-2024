@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
     <header>
         <div class="header">
             <div class="head_left">
-                <a href="index_Xpenser.html">
+                <a href="index_Xpenser.jsp">
                     <ul class="head_left_l">
                     <li><img id="h_logo" src="<%=request.getContextPath() %>/images/Xpenser_logo.png" alt="Xpenser logo"></li>
                     <li id="h_name">XPENSER</li>
@@ -22,9 +22,6 @@ try {
             </div>
         </div>
     </header>
-    <main>
-        <div class="alertbox alertbox-danger" role="alert">You are not authorized to access this resource. Please login.</div>
-    </main>
 <%
     } else {
 %>
@@ -47,7 +44,6 @@ try {
                         <a href="reviewXpnsheet.jsp" class="<%= request.getRequestURI().contains("reviewXpnsheet.jsp") ? "current" : "" %>"><li>Review Expensesheets</li></a>
 <%
         }
-    }
 %>                                     
                     </ul>
                 </div>
@@ -62,20 +58,20 @@ try {
                     <div class="us_opt">
                         <ul>
                             <li id="passkey"><%= user.getPasskey()%></li>
-                            <li><a href="login.jsp">Logout</a></li>
+                            <li><a href="logout.jsp">Logout</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
     </header>
 <%
+    }
 } catch (Exception e) {
     System.err.println("Error: " + e.getMessage());
     e.printStackTrace();
 %>
-            <div class="alertbox alertbox-danger" role="alert">Error retrieving expensesheets: <%= e.getMessage() != null ? e.getMessage() : "Unknown error" %></div>
+            <div class="alertbox alertbox-danger" role="alert">Error: <%= e.getMessage() != null ? e.getMessage() : "Unknown error" %></div>
 <%
 }
 %>

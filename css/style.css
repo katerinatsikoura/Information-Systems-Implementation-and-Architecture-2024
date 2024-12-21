@@ -325,3 +325,35 @@ table th,
 .table tbody tr:hover {
     background-color: #e8e8e8e3;
 }
+
+/* Alert Container */
+.alertbox {
+    padding: 15px 20px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Danger (Error) Alert */
+.alertbox-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.7s ease-in-out;
+} 
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

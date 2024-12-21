@@ -6,15 +6,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
-    <link rel="icon" href="images/Xpenser_logo.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="<%=request.getContextPath() %>/images/Xpenser_logo.png">
+    
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
+        rel="stylesheet">
+    
 
 <style>
     .container {
@@ -24,7 +28,7 @@
         align-items: center;
         height: 80vh;
         padding: 20px;
-        margin-top: 37px;
+        margin-top: 45px;
     }
 
     .row {
@@ -92,9 +96,56 @@
         max-height: 30px;
         margin-right: 5px;
     }
-}
-</style>
+    }
 
+    .message-container {
+            width: 70%;
+            max-width: 600px;
+            margin-top: 180px;
+            margin-right: auto;
+            margin-bottom: 30px;
+            margin-left: auto;
+            padding: 30px;
+            border-radius: 15px;
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.7s ease-in-out;
+        }
+        
+    .success-message {
+
+            background-color: rgb(190, 38, 38);
+            color: red;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(134, 190, 144, 0.877);
+    }
+
+    @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+            opacity: 1;
+            transform: translateY(0);
+            }
+    }
+
+
+    @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+    }
+</style>
+</head>
 <body>
 
     <jsp:include page="header.jsp" />
@@ -107,7 +158,8 @@ try {
 	User user = (User)session.getAttribute("userObj"); 
 	if (user == null) {
 %>
-        <div class="alertbox alertbox-danger" role="alert">You are not authorized to access this resource. Please login.</div>
+        <div class="alertbox alertbox-danger">You are not authorized to access this resource. Please login.</div>
+        <meta http-equiv="refresh" content="2;url=login.jsp">
 <%
     } else {
         if (user.getRole().equals("Employee")) { 
