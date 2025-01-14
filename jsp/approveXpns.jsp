@@ -51,11 +51,11 @@ if (es_id != null && !es_id.isEmpty()) {
     <style>
 
       .cont.f_cont .form{
-        width: 100%;
+        width: auto;
+        justify-content: center;
       }
 
       .box {
-        width: 1250px;
         margin: 30px 0 50px 0;
       }
 
