@@ -1,22 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="xpenser_classes.ExpenseSheetDAO" %>
+<%@ page import="xpenser_classes.Expense" %>
+<%@ page import="xpenser_classes.ExpenseDAO" %>
+<%@ page import="xpenser_classes.Expensesheet" %>
+<%@ page import="xpenser_classes.DB" %>
+<%@ page import="java.util.List" %>
+<%@ page import="xpenser_classes.User" %>
+<%@ page import="xpenser_classes.ExpenseActions" %>
+
+
+<%
+User signed = (User) session.getAttribute("userObj");
+if (signed == null) {
+    request.setAttribute("message", "You are not authorized to access this resource. Please login.");
+    %> <jsp:forward page="login.jsp" /> <%
+    return; }
+%>
 <!DOCTYPE html>
 <html lang="el">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Current Expensesheet</title>
-    <link rel="icon" href="<%=request.getContextPath() %>/images/Xpenser_logo.png">
-    
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="icon" href="images/Xpenser_logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
-        rel="stylesheet">
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <style>
         .f_cont {
             width: 60%;
@@ -74,7 +86,7 @@
             box-shadow: 2px 2px 5px #1f710a;
         }
 
-        /* Ξ•Ξ½Ξ­ΟΞ³ΞµΞΉΞµΟ‚ */
+        /* Ενέργειες */
         .act_cont {
             width: 18%;
             position: relative;
@@ -201,7 +213,7 @@
 
 <body>
 
-    <jsp:include page="header.jsp" />
+<jsp:include page="header.jsp" />
 
     <main>
         <div class="main_cont">
@@ -219,46 +231,49 @@
                                         <thead>
                                             <tr>
                                                 <th>Expense</th>
-                                                <th>Amount (&euro;)</th>
+                                                <th>Amount(&euro;)</th>
                                                 <th>Date</th>
                                                 <th>WBS</th>
                                             </tr>
                                         </thead>
+                                        <%
+                                         String userId = signed.getPasskey();
+                                         ExpenseSheetDAO dao = new ExpenseSheetDAO();
+                                         ExpenseActions actions = new ExpenseActions();
+                                         List<Integer> expenseSheetId = dao.getUnsubmittedExpenseSheetIds(userId);
+                                         List<Expense> expenses = actions.getExpensesFromExpensesheet(expenseSheetId.get(0));
+                                        %>
                                         <tbody>
-                                            <tr>
-                                                <td>Fuel</td>
-                                                <td>40&euro;</td>
-                                                <td>2024-05-01</td>
-                                                <td>389</td>
-                                                <td class="edit">
-                                                    <a href="postXpns.jsp">
-                                                        <button class="e_but">
-                                                            <div class="b_el">
-                                                                <span id="text">Edit</span>
-                                                                <img id="icon" src="images/Edit_Icon.png"
-                                                                    alt="Edit">
-                                                            </div>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Parking</td>
-                                                <td>6&euro;</td>
-                                                <td>2024-05-01</td>
-                                                <td>389</td>
-                                                <td class="edit">
-                                                    <a href="postXpns.jsp">
-                                                        <button class="e_but">
-                                                            <div class="b_el">
-                                                                <span id="text">Edit</span>
-                                                                <img id="icon" src="images/Edit_Icon.png"
-                                                                    alt="Edit">
-                                                            </div>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        <%
+                                           for (Expense expense : expenses) {
+                                        %>
+                                        <tr>
+                                            <td><%= expense.getType() %></td>
+                                            <td><%= expense.getAmount() %>&euro;</td>
+                                            <td><%= expense.getDate() %></td>
+                                            <td><%= expense.getWbs() %></td>
+                                            <td class="edit">
+                                                <form action="postXpns.jsp" method="post">
+                                                    <button class="e_but">
+                                                        <div class="b_el">
+                                                            <span id="text">Edit</span>
+                                                            <img id="icon" src="images/Edit_Icon.png" alt="Edit">
+                                                        </div>
+                                                    </button>
+                                                </form>
+                                                <% 
+                                                    request.setAttribute("expenseType", expense.getType());
+                                                    request.setAttribute("amount", expense.getAmount());
+                                                    request.setAttribute("date", expense.getDate());
+                                                    request.setAttribute("wbs", expense.getWbs());
+                                                    request.setAttribute("id", expense.getExpenseId());
+                                                    request.setAttribute("comments", expense.getComments());
+                                                    request.setAttribute("URL", expense.getReceipt());
+                                                }
+                                                %>
+                                            </td>
+                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -271,39 +286,20 @@
 
             <div class="cont act_cont">
                 <div class="actions">
-                    <div class="acts">
-                        <div class="act" id="save">
-                            <a href="">
-                                <button class="act_but" id="save">
+                    <form method="POST" action="processXpnsheets.jsp">
+                        <div class="acts">
+                            <div class="act">
+                                <button type="submit" class="act_but" id="submit">
                                     <div class="b_el">
-                                        <span class="but_text" id="text1">Save Draft</span>
-                                        <img class="but_icon" src="images/Save_Icon.png" alt="Save Draft">
+                                        <span class="but_text" id="text2">Final Submit</span>
+                                        <img class="but_icon" id="icon2" src="images/Submit_Icon.png" alt="Final Submit">
                                     </div>
                                 </button>
-                            </a>
+                            </div>
                         </div>
-                        <div class="act" id="submit">
-                            <button class="act_but" id="submit">
-                                <div class="b_el">
-                                    <span class="but_text" id="text2">Final Submit</span>
-                                    <img class="but_icon" id="icon2" src="images/Submit_Icon.png"
-                                        alt="Final Submit">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="act" id="print">
-                            <a href="">
-                                <button class="act_but" id="print">
-                                    <div class="b_el">
-                                        <span class="but_text">Print</span>
-                                        <img class="but_icon" src="images/Print_Icon.png" alt="Print">
-                                    </div>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
+            </div> 
         </div>
     </main>
 

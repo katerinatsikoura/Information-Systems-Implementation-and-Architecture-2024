@@ -24,6 +24,15 @@ public class Expense {
         this.comments = comments;
     }
 
+    public Expense(String date, double amount, String type, int wbs, String receipt, String comments) {
+        this.date = date;
+        this.amount = amount;
+        this.type = type;
+        this.wbs = wbs;
+        this.receipt = receipt;
+        this.comments = comments;
+    }
+
     // Getters and Setters
     public int getExpenseId() {
         return expenseId;

@@ -1,22 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="xpenser_classes.Expense" %>
-<%@ page import="xpenser_classes.ExpenseActionstest" %>
+<%@ page import="xpenser_classes.ExpenseActions" %>
 <%@ page import="xpenser_classes.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post New Expense</title>
-    <link rel="icon" href="<%=request.getContextPath() %>/images/Xpenser_logo.png">
-    
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/style.css">
+    <link rel="icon" href="images/Xpenser_logo.png">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
         rel="stylesheet">
     <style>
         body {
@@ -179,17 +175,26 @@
         String type = request.getParameter("expense-type");
         double amount = Double.parseDouble(request.getParameter("amount"));
         String receipt = request.getParameter("receipt");
-        String wbs_search = request.getParameter("wbs-search");
+        int wbs_search = Integer.parseInt( request.getParameter("wbs-search"));
         String comments = request.getParameter("comments");
 
-        String passkey = signed.getPasskey();
-        Expense expense = new Expense(date, amount, type, wbs_search, receipt, comments);
+        java.time.LocalDate expenseDate = java.time.LocalDate.parse(date);
+        java.time.LocalDate today = java.time.LocalDate.now();
 
-        ExpenseActionstest act = new ExpenseActionstest();
-        act.saveExpense(expense, date, passkey);
+        
+        if (expenseDate.getYear() < today.getYear() || 
+            (expenseDate.getYear() == today.getYear() && expenseDate.getMonthValue() < today.getMonthValue())) {
+            message = "Cannot add an expense with a previous month's date.";
+            messageType = "error";
+        } else {
+            String passkey = signed.getPasskey();
+            Expense expense = new Expense(date, amount, type, wbs_search, receipt, comments);
 
-        message = "Expense saved successfully!";
-        messageType = "success";
+            ExpenseActions.saveExpense(expense, date, passkey);
+
+            message = "Expense saved successfully!";
+            messageType = "success";
+        }
     } catch (Exception e) {
         message = "An unexpected error occurred: " + e.getMessage();
         messageType = "error";

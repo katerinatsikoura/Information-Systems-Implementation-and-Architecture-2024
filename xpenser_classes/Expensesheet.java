@@ -9,6 +9,7 @@ public class Expensesheet {
     private String date;
     private List<Expense> expenseList;
     private List<Integer> status;
+    private boolean submitted;
 
     public Expensesheet(int expensesheetId, String userPasskey, String date, List<Expense> expenseList, List<Integer> status) {
         this.expensesheetId = expensesheetId;
@@ -16,6 +17,15 @@ public class Expensesheet {
         this.date = date;
         this.expenseList = expenseList;
         this.status = status;
+    }
+
+    public Expensesheet(int expensesheetId, String userPasskey, String date, List<Expense> expenseList, List<Integer> status, boolean submitted) {
+        this.expensesheetId = expensesheetId;
+        this.userPasskey = userPasskey;
+        this.date = date;
+        this.expenseList = expenseList;
+        this.status = status;
+        this.submitted = submitted;
     }
 
     public int getExpensesheetId() {
@@ -56,6 +66,14 @@ public class Expensesheet {
 
     public void setStatus(List<Integer> status) {
         this.status = status;
+    }
+
+    public boolean getSubmitted() {
+        return submitted;
+    }
+
+    public void setSubmitted(boolean submitted) {
+        this.submitted = submitted;
     }
 
 }

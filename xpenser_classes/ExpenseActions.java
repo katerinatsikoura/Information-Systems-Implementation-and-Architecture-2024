@@ -47,6 +47,44 @@ public class ExpenseActions {
         return expenses;
     }
 
+    public Expensesheet getExpensesheetFromExpensesheetID(int es_id) throws Exception{
+        Expensesheet expensesheet = null;
+        List<Integer> status = new ArrayList<>();
+        DB db = new DB();
+		Connection con = db.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM expense_sheet WHERE expense_sheet_id = ?";
+
+        try{
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, es_id);
+            rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                String passkey = rs.getString("user_passkey");
+                String date = rs.getString("es_date");
+                status = Arrays.asList(
+                    rs.getInt("manager_approved"),
+                    rs.getInt("accounting_approved"),
+                    rs.getInt("approved"));
+                ;
+                List<Expense> expenses = getExpensesFromExpensesheet(es_id);
+
+                expensesheet = new Expensesheet(es_id, passkey, date, expenses, status);
+            }
+            
+            rs.close(); 
+            stmt.close();
+
+        } catch (Exception e) {
+			throw new Exception("Error getting expenses from expensesheet: " + e.getMessage(), e);
+		} finally {
+            db.close();
+        }
+        return expensesheet;
+    }
+
     public List<Expensesheet> getExpensesheetsToReview() throws Exception{
         List<Expensesheet> expensesheets = new ArrayList<>();
         List<Integer> status = new ArrayList<>();
@@ -123,7 +161,7 @@ public class ExpenseActions {
     }
 
     public List<Integer> getWBSFromExpensesheet(Expensesheet es) throws Exception{
-        List<Integer> wbs = new ArrayList<>();
+        List<Integer> wbsList = new ArrayList<>();
         DB db = new DB();
 		Connection con = db.getConnection();
         PreparedStatement stmt = null;
@@ -137,7 +175,11 @@ public class ExpenseActions {
                 rs = stmt.executeQuery();
 
                 while(rs.next()) {
-                    wbs.add(rs.getInt("wbs"));
+                    int wbs = rs.getInt("wbs");
+                    if (!wbsList.contains(wbs)) { // Add only if not already in the list
+                        wbsList.add(wbs);
+                    }
+                    //wbs.add(rs.getInt("wbs"));
                 }
             }
 
@@ -150,15 +192,15 @@ public class ExpenseActions {
             db.close();
         }
 
-        return wbs;
+        return wbsList;
 
     }
 
-    public List<Expensesheet> getProcessedExpensesheets(String passkey) throws Exception{
+    public List<Expensesheet> getProcessedExpensesheets(String passkey) throws Exception {
         List<Expensesheet> expensesheets = new ArrayList<>();
         List<Integer> status = new ArrayList<>();
         DB db = new DB();
-	Connection con = db.getConnection();
+        Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM expense_sheet WHERE user_passkey = ?  AND submitted = 1";
@@ -167,25 +209,27 @@ public class ExpenseActions {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, passkey);
             rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 int es_id = rs.getInt("expense_sheet_id");
-                String userpasskey = rs.getString("user_passkey");
+                String passKey = rs.getString("user_passkey");
                 String date = rs.getString("es_date");
                 status = Arrays.asList(
-                    rs.getInt("manager_approved"),
-                    rs.getInt("accounting_approved"),
-                    rs.getInt("approved"));
+                        rs.getInt("manager_approved"),
+                        rs.getInt("accounting_approved"),
+                        rs.getInt("approved"));
                 ;
 
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
-                expensesheets.add(new Expensesheet(es_id, userpasskey, date, expenses, status));
-                
+                expensesheets.add(new Expensesheet(es_id, passKey, date, expenses, status));
+    
             }
+            rs.close();
+            stmt.close();
 
         } catch (Exception e) {
-			throw new Exception("Error getting processed expensesheets: " + e.getMessage(), e);
-		} finally {
+            throw new Exception("Error getting processed expensesheets: " + e.getMessage(), e);
+        } finally {
             db.close();
         }
         return expensesheets;

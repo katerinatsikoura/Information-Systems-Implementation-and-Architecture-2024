@@ -49,7 +49,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-   
+  
     public User() {}
 
     public static User authenticate(String passkey) throws Exception {
@@ -98,6 +98,7 @@ public class User {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, user.getEmail());
 			ResultSet rs = preparedStatement.executeQuery();
+            
 			if (rs.next()) {
 				throw new Exception("This email has already registered. Try again");
 			}
@@ -131,20 +132,28 @@ public class User {
 
 
     public static String generatePasskey(String role) throws Exception {
-        String prefix = role.equalsIgnoreCase("Manager") ? "m" : "e";
+        String prefix;
+        if (role.equalsIgnoreCase("Manager")) {
+            prefix = "m";
+        } else if (role.equalsIgnoreCase("Accountant")) {
+            prefix = "a";
+        } else {
+            prefix = "e";
+        }
+    
         Connection conn = null;
         DB db = new DB();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String passkey = "";
-
+    
         try {
-            conn = db.getConnection(); 
+            conn = db.getConnection();
             String sql = "SELECT COUNT(*) FROM user WHERE role = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, role);
             rs = stmt.executeQuery();
-
+    
             int count = 0;
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -155,9 +164,10 @@ public class User {
             if (stmt != null) stmt.close();
             if (conn != null) conn.close();
         }
-
+    
         return passkey;
     }
+    
 
 
    

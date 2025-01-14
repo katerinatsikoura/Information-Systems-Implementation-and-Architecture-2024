@@ -49,14 +49,12 @@ if (es_id != null && !es_id.isEmpty()) {
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
     <style>
-
-      .cont.f_cont .form{
+      .b_el {
         width: 100%;
       }
 
       .box {
-        width: 1250px;
-        margin: 30px 0 50px 0;
+        margin: 80px 0 50px 0;
       }
 
       .approved img {
@@ -86,7 +84,6 @@ if (es_id != null && !es_id.isEmpty()) {
       }
 
       .b_el {
-        width: 100%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -108,133 +105,6 @@ if (es_id != null && !es_id.isEmpty()) {
       .c_but {
         transition: all 0.2s ease;
       }
-
-      /* Επιλογές */
-        .options {
-            width: 20%;
-        }
-
-        .opt {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-        .opt input[type="radio"] {
-            display: none;
-        }
-
-        .opt label {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 25px;
-            box-shadow: 1px 1px 5px rgb(103, 103, 103);
-            width: 100px;
-            height: 35px;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .opt label:hover {
-            scale: 1.1;
-        }
-
-        .opt label[for^="reject"]:hover {
-            box-shadow: 0 0 5px #e11919;
-        }
-
-        .opt label[for^="approve"]:hover {
-            box-shadow: 0 0 5px #299a0d;
-        }
-
-        .opt label[for^="reject"] {
-            color: #e11919;
-            border: #e11919bc 2px solid;
-        }
-
-        .opt label[for^="approve"] {
-            color: #299a0d;
-            border: #2da70fbc 2px solid;
-        }
-
-        .opt input[id^="approve"]:checked~label[for^="approve"] {
-            background-color: #2da70f;
-            color: white;
-        }
-
-        .opt input[id^="reject"]:checked~label[for^="reject"] {
-            background-color: #e61212;
-            color: white;
-        }
-
-        .opt input[id^="reject"]:checked~.reason_cont .reason_input {
-            cursor: pointer;
-            pointer-events: auto;
-            opacity: 1;
-        }
-
-        .reason_input {
-            height: 35px;
-            width: 150px;
-            padding: 0 8px;
-            font-family: inherit;
-            border: #ce1414bc 2px solid;
-            border-radius: 12px;
-            box-shadow: 1px 1px 5px rgb(103, 103, 103);
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .reason_input:hover {
-            scale: 1.05;
-            box-shadow: 0 0 5px #e11919;
-        }
-
-        .reason_input:focus-visible {
-            border: #e30a0a 2.5px solid;
-            outline: none;
-            box-shadow: 0 0 5px #e11919;
-        }
-
-        .reason_input::placeholder {
-            color: #e11919;
-        }
-
-        .submit_cont{
-          display: flex;
-          justify-content: center;
-          margin-top: 50px;
-        }
-
-        .submit_button {
-            background-color: #26890d;
-            border: #26890dbc 2px solid;
-            border-radius: 25px;
-            box-shadow: 1px 1px 5px rgb(71, 71, 71);
-            height: 70px;
-            width: 175px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .but_text {
-            font-size: 24px;
-            font-family: 'Open Sans', Verdana, Helvetica, sans-serif;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 5px rgb(71, 71, 71);
-        }
-
-        .submit_button:hover {
-            scale: 1.1;
-            background-color: #2da70f;
-            border-color: #2da70fab;
-            box-shadow: 2px 2px 5px #1f710a;
-        }
-
     </style>
   </head>
 
@@ -244,21 +114,7 @@ if (es_id != null && !es_id.isEmpty()) {
 
     <main>
         <div class="main_cont">
-
             <div class="cont f_cont">
-            <form class="exp_form" action="approveXpnsController.jsp" method="get" enctype="multipart/form-data">
-<%
-            if (!user.getRole().equals("Employee")) {
-%>
-            <!-- Container for the submit button -->
-            <div class="submit_cont">
-                <button type="submit" class="submit_button">
-                <span class="but_text">Submit</span>
-                </button>
-            </div>
-<%
-            }
-%>
                 <div class="form">
                     <ul class="box">
                         <li>
@@ -314,22 +170,21 @@ if (es_id != null && !es_id.isEmpty()) {
                                               <td class="options">
                                                 <div class="opt">
                                             		<input type="radio" id="approve<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>">
-                                            		<label for="approve<%= expense.getExpenseId() %>">Approve</label>
+                                            		<input type="radio" id="reject<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>">
 
-                                                <input type="radio" id="reject<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>">
+                                            		<label for="approve<%= expense.getExpenseId() %>">Approve</label>
                                             		<label for="reject<%= expense.getExpenseId() %>">Reject</label>
 
-                                            		<div class="reason_cont" id="reason_cont_<%= expense.getExpenseId() %>">
-                                                	   <input type="text" name="rejectionReason<%= expense.getExpenseId() %>" 
-                                                     class="reason_input" placeholder="Rejection Reason...">
+                                            		<div class="reason_cont">
+                                                	   <input type="text" class="reason_input"
+                                                    		placeholder="Rejection Reason..." required>
                                             		</div>
-                                        	      </div>
-                                          
-<%
+                                        	   </div>
+<% 
                                             }
 %>
-                                   	 	        </td>
-                                	        </tr>
+                                   	 	</td>
+                                	    </tr>
                                         <%
                                                }
                                     	    } else {
@@ -357,9 +212,7 @@ if (es_id != null && !es_id.isEmpty()) {
                         </li>
                     </ul>
                 </div>
-            
-          </form>
-          </div>
+            </div>
         </div>
     </main>
 </body>

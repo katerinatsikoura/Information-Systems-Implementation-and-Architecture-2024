@@ -2,6 +2,15 @@
 pageEncoding="UTF-8"%>
 <%@ page import="xpenser_classes.*, java.util.*" %>
 
+<%
+Object userObj = session.getAttribute("userObj");
+if (userObj == null) {
+    request.setAttribute("message", "You are not authorized to access this resource. Please login.");
+    request.getRequestDispatcher("login.jsp").forward(request, response);
+    return;
+}
+%>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -97,7 +106,8 @@ pageEncoding="UTF-8"%>
     
 <%
 try {
-	User user = (User)session.getAttribute("userObj"); 
+
+	User user = (User) userObj; 
     
     if (user == null) {
 %>
@@ -166,7 +176,7 @@ try {
 <%
                 if (sheet.getStatus().get(2)!= 0 && sheet.getStatus().get(2)!= 1) {
 %>
-                                                    <a href="approveXpns.jsp">
+                                                    <a href="approveXpns.jsp?es_id=<%= sheet.getExpensesheetId() %>">
                                                     <button class="c_but">
                                                         <div class="b_el">
                                                             <span id="text">Review</span>

@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="xpenser_classes.Dao" %>
-<%@ page import="xpenser_classes.Expensesheet" %>
-<%@ page import="xpenser_classes.User" %>
+<%@ page import="xpenser_classes.*" %>
 <%@ page import="java.util.*" %> 
 
 
@@ -14,8 +12,8 @@ if (userObj == null) {
 }
 User user = (User) userObj;
 String passkey = user.getPasskey();
-Dao dao = new Dao();
-List<Expensesheet> expensesheets = dao.getProcessedExpensesheets(passkey);
+ExpenseActions ea = new ExpenseActions();
+List<Expensesheet> expensesheets = ea.getProcessedExpensesheets(passkey);
 boolean isEmpty = false;
 if (expensesheets == null || expensesheets.isEmpty()) {
   isEmpty= true;
@@ -35,8 +33,6 @@ if (expensesheets == null || expensesheets.isEmpty()) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
         rel="stylesheet">
     <style>
       .b_el {
@@ -111,50 +107,57 @@ if (expensesheets == null || expensesheets.isEmpty()) {
                 <div class="fh_cont">
                   <div class="f_head">Processed Expensesheets</div>
                 </div>
-                <div class="f_body">
-                  <div class="table_cont">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Expensesheet ID</th>
-                          <th>Date</th>
-                          <th>Manager Approval</th>
-                          <th>Accounting Approval</th>
-                          <th>Final Approval</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <% try {
-                        if (isEmpty) {
-                      %>
+                <% try {
+                  if (isEmpty) {
+                %>
+                    <div class="alertbox alertbox-danger" role="alert">
+                      No processed expensesheets found for this user.
+                    </div>
+                    <%
+                  } else {
+                  %>
+                  <div class="f_body">
+                    <div class="table_cont">
+                      <table class="table">
+                        <thead>
                           <tr>
-                            <td colspan="6">No processed expensesheets found for this user.</td>
+                            <th>Expensesheet ID</th>
+                            <th>Date</th>
+                            <th>Manager Approval</th>
+                            <th>Accounting Approval</th>
+                            <th>Final Approval</th>
+                            <th></th>
                           </tr>
-                      <%
-                        } else { 
-                          for (Expensesheet sheet : expensesheets) {
-                      %>
-                        <tr>
-                          <td><%= sheet.getExpensesheetId() %></td>
-                          <td><%= sheet.getDate() %></td>
-                          <td><%= dao.getStatusIcon(sheet.getStatus().get(0), request.getContextPath()) %></td>
-                          <td><%= dao.getStatusIcon(sheet.getStatus().get(1), request.getContextPath()) %></td>
-                          <td><%= dao.getStatusIcon(sheet.getStatus().get(2), request.getContextPath()) %></td>
-                          <td class="details">
-                            <a href="approveXpns.jsp?uid=<%= sheet.getExpensesheetId() %>">
-                              <button class="c_but">
-                                <div class="b_el">
-                                  <span id="text">Details</span>
-                                </div>
-                              </button>
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <% 
+                          for (Expensesheet sheet : expensesheets) { 
+                          %>
+                          <tr>
+                            <td><%= sheet.getExpensesheetId() %></td>
+                            <td><%= sheet.getDate() %></td>
+                            <td><%= ea.getStatusIcon(sheet.getStatus().get(0), request.getContextPath()) %></td>
+                            <td><%= ea.getStatusIcon(sheet.getStatus().get(1), request.getContextPath()) %></td>
+                            <td><%= ea.getStatusIcon(sheet.getStatus().get(2), request.getContextPath()) %></td>
+                            <td class="details">
+                              <a href="approveXpns.jsp?es_id=<%= sheet.getExpensesheetId() %>">
+                                <button class="c_but">
+                                  <div class="b_el">
+                                    <span id="text">Details</span>
+                                  </div>
+                                </button>
+                              </a>
+                            </td>
+                          </tr>
+                          <% 
+                          } 
+                          %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                     <% 
                           }
-                        }
                       } catch (Exception e) {
                     %>
                         <div class="alert alert-danger text-center" role="alert">Error retrieving expensesheets: <%= e.getMessage() %></div>     
