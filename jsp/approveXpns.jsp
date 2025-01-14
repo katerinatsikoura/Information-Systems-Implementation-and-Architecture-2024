@@ -50,14 +50,26 @@ if (es_id != null && !es_id.isEmpty()) {
         rel="stylesheet">
     <style>
 
-      .cont.f_cont .form{
-        width: auto;
-        justify-content: center;
-      }
+        .exp_form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
 
       .box {
         margin: 30px 0 50px 0;
       }
+    
+        .f_header{
+            display: flex;
+            justify-content: center;
+        }
+
+        .f_header p{
+            margin: 15px;
+            font-size: 17px;
+        }
 
       .approved img {
         display: none;
@@ -246,7 +258,7 @@ if (es_id != null && !es_id.isEmpty()) {
         <div class="main_cont">
 
             <div class="cont f_cont">
-            <form class="exp_form" action="approveXpnsController.jsp" method="get" enctype="multipart/form-data">
+            <form class="exp_form" action="approveXpnsController.jsp" method="post" enctype="multipart/form-data">
 <%
             if (!user.getRole().equals("Employee")) {
 %>
@@ -269,8 +281,10 @@ if (es_id != null && !es_id.isEmpty()) {
 				<%
                        		   if (sheet != null) {
                     		%>
-                    		<p><strong>Sheet ID:</strong> <%= sheet.getExpensesheetId() %></p>
-                    		<p><strong>Date Submitted:</strong> <%= sheet.getDate() %></p>
+                            <div class="f_header">
+                    		    <p><strong>Sheet ID:</strong> <%= sheet.getExpensesheetId() %></p>
+                    		    <p><strong>Date Submitted:</strong> <%= sheet.getDate() %></p>
+                            </div>
                                 <div class="table_cont">
                                     <table class="table">
                                         <thead>
@@ -313,10 +327,10 @@ if (es_id != null && !es_id.isEmpty()) {
 %>
                                               <td class="options">
                                                 <div class="opt">
-                                            		<input type="radio" id="approve<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>">
+                                            		<input type="radio" id="approve<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>" value="approve">
                                             		<label for="approve<%= expense.getExpenseId() %>">Approve</label>
 
-                                                <input type="radio" id="reject<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>">
+                                                <input type="radio" id="reject<%= expense.getExpenseId() %>" name="options<%= expense.getExpenseId() %>" value="reject">
                                             		<label for="reject<%= expense.getExpenseId() %>">Reject</label>
 
                                             		<div class="reason_cont" id="reason_cont_<%= expense.getExpenseId() %>">

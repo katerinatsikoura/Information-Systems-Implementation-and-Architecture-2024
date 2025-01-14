@@ -12,8 +12,9 @@ public class Expense {
     private String receipt;
     private List<Integer> status;
     private String comments;
+    private String rejReason;
 
-    public Expense(int expenseId, String date, double amount, String type, int wbs, String receipt, List<Integer> status, String comments) {
+    public Expense(int expenseId, String date, double amount, String type, int wbs, String receipt, List<Integer> status, String comments, String rejReason) {
         this.expenseId = expenseId;
         this.date = date;
         this.amount = amount;
@@ -22,6 +23,7 @@ public class Expense {
         this.receipt = receipt;
         this.status = status;
         this.comments = comments;
+        this.rejReason = rejReason;
     }
 
     public Expense(String date, double amount, String type, int wbs, String receipt, String comments) {
@@ -104,6 +106,14 @@ public class Expense {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getRejReason() {
+        return rejReason;
+    }   
+
+    public void setRejReason(String rejReason) {
+        this.rejReason = rejReason;
     }
 
 }

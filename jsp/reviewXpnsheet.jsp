@@ -174,7 +174,8 @@ try {
                                                 <td><%= ea.getStatusIcon(sheet.getStatus().get(2), request.getContextPath())%></td>                                                                 
                                                 <td class="check">
 <%
-                if (sheet.getStatus().get(2)!= 0 && sheet.getStatus().get(2)!= 1) {
+                if (((sheet.getStatus().get(0) == -1) && (user.getRole().equalsIgnoreCase("manager"))) 
+                || ((sheet.getStatus().get(1) == -1) && (user.getRole().equalsIgnoreCase("accountant")))) {
 %>
                                                     <a href="approveXpns.jsp?es_id=<%= sheet.getExpensesheetId() %>">
                                                     <button class="c_but">

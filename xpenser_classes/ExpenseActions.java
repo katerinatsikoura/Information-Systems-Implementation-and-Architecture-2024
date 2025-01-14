@@ -32,8 +32,9 @@ public class ExpenseActions {
                     rs.getInt("apprvd"));
                 ;
                 String comments = rs.getString("comments") != null ? rs.getString("comments") : "";
+                String rejReason = rs.getString("rej_reason") != null ? rs.getString("rej_reason") : "";
                 
-                expenses.add(new Expense(id, date, amount, type, wbs, receipt, status, comments));
+                expenses.add(new Expense(id, date, amount, type, wbs, receipt, status, comments, rejReason));
             }
 
             rs.close(); 
@@ -243,4 +244,40 @@ public class ExpenseActions {
         }
         return "";
     }
+
+    public void updateExpenseStatus(int exp_id, String action, String rejReason, String role) throws Exception {
+        DB db = new DB();
+        Connection con = db.getConnection();
+        PreparedStatement stmt = null;
+        String sql;
+        if (role.equalsIgnoreCase("manager")) {
+            sql = "UPDATE expense SET mngr_approved = ?, rej_reason = ? WHERE expense_id = ?";
+        } else {
+            sql = "UPDATE expense SET acc_approved = ?, rej_reason = ? WHERE expense_id = ?";
+        }
+
+        try {
+                // Determine the new status (approved or rejected)
+                int status = -1;
+                if (action.equalsIgnoreCase("approve")) {
+                    status = 1; // Approved
+                } else if (action.equalsIgnoreCase("reject")) {
+                    status = 0; //Rejected
+                }
+    
+                stmt = con.prepareStatement(sql);
+                stmt.setInt(1, status);
+                stmt.setString(2, rejReason);
+                stmt.setInt(3, exp_id);
+                stmt.executeUpdate();
+
+                stmt.close();
+     
+        } catch (Exception e) {
+            throw new Exception("Error updating expense status: " + e.getMessage(), e);
+        } finally {
+            db.close();
+        }
+    }
+    
 }
