@@ -3,23 +3,23 @@ package xpenser_classes;
 import java.sql.*;
 import java.util.*;
 
-public class ExpenseActions {
+public class ExpenseActions2 {
 
-    public List<Expense> getExpensesFromExpensesheet(int es_id) throws Exception {
+    public List<Expense> getExpensesFromExpensesheet(int es_id) throws Exception{
         List<Expense> expenses = new ArrayList<>();
         List<Integer> status = new ArrayList<>();
         DB db = new DB();
-        Connection con = db.getConnection();
+		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM expense WHERE expense_sheet_id = ?";
 
-        try {
+        try{
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, es_id);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while(rs.next()) {
                 int id = rs.getInt("expense_id");
                 String date = rs.getString("e_date");
                 double amount = rs.getDouble("amount");
@@ -27,120 +27,120 @@ public class ExpenseActions {
                 int wbs = rs.getInt("wbs");
                 String receipt = rs.getString("URL");
                 status = Arrays.asList(
-                        rs.getInt("mngr_approved"),
-                        rs.getInt("acc_approved"),
-                        rs.getInt("apprvd"));
+                    rs.getInt("mngr_approved"),
+                    rs.getInt("acc_approved"),
+                    rs.getInt("apprvd"));
                 ;
                 String comments = rs.getString("comments") != null ? rs.getString("comments") : "";
                 String rejReason = rs.getString("rej_reason") != null ? rs.getString("rej_reason") : "";
-
+                
                 expenses.add(new Expense(id, date, amount, type, wbs, receipt, status, comments, rejReason));
             }
 
-            rs.close();
+            rs.close(); 
             stmt.close();
 
         } catch (Exception e) {
-            throw new Exception("Error getting expenses from expensesheet: " + e.getMessage(), e);
-        } finally {
+			throw new Exception("Error getting expenses from expensesheet: " + e.getMessage(), e);
+		} finally {
             db.close();
         }
         return expenses;
     }
 
-    public Expensesheet getExpensesheetFromExpensesheetID(int es_id) throws Exception {
+    public Expensesheet getExpensesheetFromExpensesheetID(int es_id) throws Exception{
         Expensesheet expensesheet = null;
         List<Integer> status = new ArrayList<>();
         DB db = new DB();
-        Connection con = db.getConnection();
+		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM expense_sheet WHERE expense_sheet_id = ?";
 
-        try {
+        try{
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, es_id);
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            if(rs.next()) {
                 String passkey = rs.getString("user_passkey");
                 String date = rs.getString("es_date");
                 status = Arrays.asList(
-                        rs.getInt("manager_approved"),
-                        rs.getInt("accounting_approved"),
-                        rs.getInt("approved"));
+                    rs.getInt("manager_approved"),
+                    rs.getInt("accounting_approved"),
+                    rs.getInt("approved"));
                 ;
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
 
                 expensesheet = new Expensesheet(es_id, passkey, date, expenses, status);
             }
-
-            rs.close();
+            
+            rs.close(); 
             stmt.close();
 
         } catch (Exception e) {
-            throw new Exception("Error getting expenses from expensesheet: " + e.getMessage(), e);
-        } finally {
+			throw new Exception("Error getting expenses from expensesheet: " + e.getMessage(), e);
+		} finally {
             db.close();
         }
         return expensesheet;
     }
 
-    public List<Expensesheet> getExpensesheetsToReview() throws Exception {
+    public List<Expensesheet> getExpensesheetsToReview() throws Exception{
         List<Expensesheet> expensesheets = new ArrayList<>();
         List<Integer> status = new ArrayList<>();
         DB db = new DB();
-        Connection con = db.getConnection();
+		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM expense_sheet WHERE es_date >= DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH" +
-                ", '%Y-%m-01') AND es_date < DATE_FORMAT(CURDATE(), '%Y-%m-01') AND submitted = 1";
+        ", '%Y-%m-01') AND es_date < DATE_FORMAT(CURDATE(), '%Y-%m-01') AND submitted = 1";
 
-        try {
+        try{
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while(rs.next()) {
                 int es_id = rs.getInt("expense_sheet_id");
                 String user_passkey = rs.getString("user_passkey");
                 String date = rs.getString("es_date");
                 status = Arrays.asList(
-                        rs.getInt("manager_approved"),
-                        rs.getInt("accounting_approved"),
-                        rs.getInt("approved"));
+                    rs.getInt("manager_approved"),
+                    rs.getInt("accounting_approved"),
+                    rs.getInt("approved"));
                 ;
 
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
                 expensesheets.add(new Expensesheet(es_id, user_passkey, date, expenses, status));
             }
 
-            rs.close();
+            rs.close(); 
             stmt.close();
 
         } catch (Exception e) {
-            throw new Exception("Error getting expensesheets to review: " + e.getMessage(), e);
-        } finally {
+			throw new Exception("Error getting expensesheets to review: " + e.getMessage(), e);
+		} finally {
             db.close();
         }
 
         return expensesheets;
     }
 
-    public User getUserFromExpensesheet(Expensesheet es) throws Exception {
+    public User getUserFromExpensesheet(Expensesheet es) throws Exception{
         User user = null;
         DB db = new DB();
-        Connection con = db.getConnection();
+		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM user WHERE passkey = ?";
         String user_passkey = es.getuserPasskey();
-
-        try {
+   
+        try{
             stmt = con.prepareStatement(sql);
             stmt.setString(1, user_passkey);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while(rs.next()) {
                 String fullname = rs.getString("fullname");
                 String email = rs.getString("email");
                 String role = rs.getString("role");
@@ -149,46 +149,47 @@ public class ExpenseActions {
                 user = new User(fullname, email, role, passkey);
             }
 
-            rs.close();
+            rs.close(); 
             stmt.close();
 
         } catch (Exception e) {
-            throw new Exception("Error getting user from expensesheet: " + e.getMessage(), e);
-        } finally {
+			throw new Exception("Error getting user from expensesheet: " + e.getMessage(), e);
+		} finally {
             db.close();
         }
 
         return user;
     }
 
-    public List<Integer> getWBSFromExpensesheet(Expensesheet es) throws Exception {
+    public List<Integer> getWBSFromExpensesheet(Expensesheet es) throws Exception{
         List<Integer> wbsList = new ArrayList<>();
         DB db = new DB();
-        Connection con = db.getConnection();
+		Connection con = db.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT wbs FROM expense WHERE expense_id = ?";
-
-        try {
-            for (Expense exp : es.getExpenseList()) {
+        
+        try{
+            for (Expense exp: es.getExpenseList()){
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(1, exp.getExpenseId());
                 rs = stmt.executeQuery();
 
-                while (rs.next()) {
+                while(rs.next()) {
                     int wbs = rs.getInt("wbs");
                     if (!wbsList.contains(wbs)) { // Add only if not already in the list
                         wbsList.add(wbs);
                     }
+                    //wbs.add(rs.getInt("wbs"));
                 }
             }
 
-            rs.close();
+            rs.close(); 
             stmt.close();
 
         } catch (Exception e) {
-            throw new Exception("Error getting wbs from expensesheet: " + e.getMessage(), e);
-        } finally {
+			throw new Exception("Error getting wbs from expensesheet: " + e.getMessage(), e);
+		} finally {
             db.close();
         }
 
@@ -222,7 +223,7 @@ public class ExpenseActions {
 
                 List<Expense> expenses = getExpensesFromExpensesheet(es_id);
                 expensesheets.add(new Expensesheet(es_id, passKey, date, expenses, status));
-
+    
             }
             rs.close();
             stmt.close();
@@ -249,7 +250,6 @@ public class ExpenseActions {
         Connection con = db.getConnection();
         PreparedStatement stmt = null;
         String sql;
-
         if (role.equalsIgnoreCase("manager")) {
             sql = "UPDATE expense SET mngr_approved = ?, rej_reason = ? WHERE expense_id = ?";
         } else if (role.equalsIgnoreCase("accountant")) {
@@ -259,25 +259,37 @@ public class ExpenseActions {
         }
 
         try {
-            // Determine the new status (approved or rejected)
-            int status;
-            if (action.equalsIgnoreCase("approve")) {
-                status = 1; // Approved
-            } else if (action.equalsIgnoreCase("reject")) {
-                status = 0; // Rejected
-            } else {
-                throw new IllegalArgumentException("Invalid action: " + action);
-            }
+                // Determine the new status (approved or rejected)
+                int status;
+                if (action.equalsIgnoreCase("approve")) {
+                    status = 1; // Approved
+                } else if (action.equalsIgnoreCase("reject")) {
+                    status = 0; //Rejected
+                } else {
+                    throw new IllegalArgumentException("Invalid action: " + action);
+                }
+    
+                System.out.println("Executing Update:");
+        System.out.println("exp_id: " + exp_id);
+        System.out.println("action: " + action);
+        System.out.println("rejReason: " + rejReason);
+        System.out.println("role: " + role);
 
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, status);
-            stmt.setString(2, rejReason);
-            stmt.setInt(3, exp_id);
+                stmt = con.prepareStatement(sql);
+                stmt.setInt(1, status);
+                stmt.setString(2, rejReason);
+                stmt.setInt(3, exp_id);
+                int rowsUpdated = stmt.executeUpdate();
+                
+                System.out.println("Rows updated: " + rowsUpdated);
+        if (rowsUpdated == 0) {
+            throw new Exception("No rows updated. Verify expense ID.");
+        }
 
-            stmt.close();
-
+                stmt.close();
+     
         } catch (Exception e) {
-            e.printStackTrace(); // Log the complete stack trace
+            e.printStackTrace(); // Debugging
             throw new Exception("Error updating expense status: " + e.getMessage(), e);
         } finally {
             db.close();
@@ -289,26 +301,30 @@ public class ExpenseActions {
         DB db = new DB();
         Connection connection = null;
 
+        
+
         try {
             int expenseSheetId = getOrCreateExpenseSheet(passkey, date);
             connection = db.getConnection();
             String query = "INSERT INTO expense (expense_sheet_id, expense_type, e_date, amount, wbs, mngr_approved, acc_approved, apprvd, comments, URL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query);
 
+
             stmt.setInt(1, expenseSheetId);
             stmt.setString(2, expense.getType());
             stmt.setString(3, expense.getDate());
             stmt.setDouble(4, expense.getAmount());
             stmt.setInt(5, expense.getWbs());
-            stmt.setInt(6, -1);
-            stmt.setInt(7, -1);
-            stmt.setInt(8, -1);
+            stmt.setInt(6,-1);
+            stmt.setInt(7,-1);
+            stmt.setInt(8,-1);
             stmt.setString(9, expense.getComments());
             stmt.setString(10, expense.getReceipt());
-
+            
+            
             stmt.executeUpdate();
         } catch (SQLException e) {
-
+            
             System.err.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
             throw e;
@@ -321,44 +337,43 @@ public class ExpenseActions {
 
     public static int getOrCreateExpenseSheet(String passkey, String date) throws Exception {
         int expenseSheetId = -1;
-
+       
         DB db = new DB();
         Connection connection = null;
 
+      
         try {
             String query = "SELECT expense_sheet_id FROM expense_sheet WHERE user_passkey = ? AND es_date >= DATE_FORMAT(CURDATE(), '%Y-%m-01') AND es_date < DATE_FORMAT(CURDATE() + INTERVAL 1 MONTH, '%Y-%m-01')";
             connection = db.getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
-
-            stmt.setString(1, passkey);
-
+    
+            stmt.setString(1, passkey);  
+            
             ResultSet rs = stmt.executeQuery();
-
+            
             if (rs.next()) {
-
+    
                 expenseSheetId = rs.getInt("expense_sheet_id");
             } else {
-
-                String insertQuery = "INSERT INTO expense_sheet (user_passkey, es_date, manager_approved, accounting_approved, approved, submitted) "
-                        +
-                        "VALUES (?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery,
-                        Statement.RETURN_GENERATED_KEYS)) {
+        
+                String insertQuery = "INSERT INTO expense_sheet (user_passkey, es_date, manager_approved, accounting_approved, approved, submitted) " +
+                                     "VALUES (?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
                     insertStmt.setString(1, passkey);
                     insertStmt.setString(2, date);
                     insertStmt.setInt(3, 0);
                     insertStmt.setInt(4, 0);
                     insertStmt.setInt(5, 0);
                     insertStmt.setInt(6, 0);
-
+                    
                     insertStmt.executeUpdate();
-
+    
                     ResultSet generatedKeys = insertStmt.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         expenseSheetId = generatedKeys.getInt(1);
                     }
                 } catch (SQLException e) {
-
+            
                     System.err.println("SQL Error: " + e.getMessage());
                     e.printStackTrace();
                     throw e;
@@ -369,7 +384,7 @@ public class ExpenseActions {
                 }
             }
         } catch (SQLException e) {
-
+            
             System.err.println("SQL Error: " + e.getMessage());
             e.printStackTrace();
             throw e;
@@ -378,145 +393,7 @@ public class ExpenseActions {
             e.printStackTrace();
             throw new SQLException("Error saving expense: " + e.getMessage(), e);
         }
-
+    
         return expenseSheetId;
-    }
-
-    public void updateApprovalStatus(int expenseId) throws Exception {
-        DB db = new DB();
-        Connection con = db.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-
-            // Step 1: Update the individual expense approval status
-            String sql1 = "SELECT mngr_approved, acc_approved FROM expense WHERE expense_id = ?";
-            stmt = con.prepareStatement(sql1);
-            stmt.setInt(1, expenseId);
-            rs = stmt.executeQuery();
-
-            int expenseSheetId = -1;
-
-            if (rs.next()) {
-                int mngrApproved = rs.getInt("mngr_approved");
-                int accApproved = rs.getInt("acc_approved");
-                expenseSheetId = rs.getInt("expense_sheet_id");
-
-                if (mngrApproved != -1 && accApproved != -1) {
-                    int apprvd = (mngrApproved == 1 && accApproved == 1) ? 1 : 0;
-
-                    String sql2 = "UPDATE expense SET apprvd = ? WHERE expense_id = ?";
-                    stmt = con.prepareStatement(sql2);
-                    stmt.setInt(1, apprvd);
-                    stmt.setInt(2, expenseId);
-                    stmt.executeUpdate();
-                }
-            }
-
-            rs.close();
-
-            if (expenseSheetId != -1) {
-
-                // Step 2: Update the manager approval status of the expensesheet
-                String sql3 = "SELECT mngr_approved FROM expense WHERE expensesheet_id = ?";
-                stmt = con.prepareStatement(sql3);
-                stmt.setInt(1, expenseSheetId);
-                rs = stmt.executeQuery();
-
-                boolean allManagerDecided = true;
-                boolean anyManagerRejected = false;
-
-                while (rs.next()) {
-                    int mngrApproved = rs.getInt("mngr_approved");
-                    if (mngrApproved == -1) {
-                        allManagerDecided = false;
-                    }
-                    if (mngrApproved == 0) {
-                        anyManagerRejected = true;
-                    }
-                }
-
-                rs.close();
-
-                int managerApprovedStatus;
-                if (allManagerDecided) {
-                    managerApprovedStatus = anyManagerRejected ? 0 : 1;
-                } else {
-                    managerApprovedStatus = -1;
-                }
-
-                String sql4 = "UPDATE expensesheet SET manager_approved = ? WHERE expensesheet_id = ?";
-                stmt = con.prepareStatement(sql4);
-                stmt.setInt(1, managerApprovedStatus);
-                stmt.setInt(2, expenseSheetId);
-                stmt.executeUpdate();
-
-                // Step 3: Update the accountant approval status of the expensesheet
-                String sql5 = "SELECT acc_approved FROM expense WHERE expensesheet_id = ?";
-                stmt = con.prepareStatement(sql5);
-                stmt.setInt(1, expenseSheetId);
-                rs = stmt.executeQuery();
-
-                boolean allAccountantDecided = true;
-                boolean anyAccountantRejected = false;
-
-                while (rs.next()) {
-                    int accApproved = rs.getInt("acc_approved");
-                    if (accApproved == -1) {
-                        allAccountantDecided = false;
-                    }
-                    if (accApproved == 0) {
-                        anyAccountantRejected = true;
-                    }
-                }
-
-                rs.close();
-
-                int accountantApprovedStatus;
-                if (allAccountantDecided) {
-                    accountantApprovedStatus = anyAccountantRejected ? 0 : 1;
-                } else {
-                    accountantApprovedStatus = -1;
-                }
-
-                String sql6 = "UPDATE expensesheet SET accounting_approved = ? WHERE expensesheet_id = ?";
-                stmt = con.prepareStatement(sql6);
-                stmt.setInt(1, accountantApprovedStatus);
-                stmt.setInt(2, expenseSheetId);
-                stmt.executeUpdate();
-
-                // Final step
-                String sql7 = "SELECT manager_approved, accounting_approved FROM expense_sheet WHERE expense_sheet_id = ?";
-                stmt = con.prepareStatement(sql7);
-                stmt.setInt(1, expenseSheetId);
-                rs = stmt.executeQuery();
-
-                if (rs.next()) {
-                    int managerApproved = rs.getInt("manager_approved");
-                    int accountingApproved = rs.getInt("accounting_approved");
-                 
-                    if (managerApproved != -1 && accountingApproved != -1) {
-                        int approved = (managerApproved == 1 && accountingApproved == 1) ? 1 : 0;
-
-                        String sql8 = "UPDATE expense_sheet SET approved = ? WHERE expense_sheet_id = ?";
-                        stmt = con.prepareStatement(sql8);
-                        stmt.setInt(1, approved);
-                        stmt.setInt(2, expenseSheetId);
-                        stmt.executeUpdate();
-                    }
-                }
-
-                rs.close();
-
-            }
-
-            stmt.close();
-
-        } catch (SQLException e) {
-            throw new Exception("Error updating expense status");
-        } finally {
-            db.close();
-        }
     }
 }

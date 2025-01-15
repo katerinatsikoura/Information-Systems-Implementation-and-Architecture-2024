@@ -60,9 +60,13 @@ try {
                 } else {
                     ea.updateExpenseStatus(expenseId, "reject", "", user.getRole());
                 }
+
             } else {
                 throw new Exception("Invalid action" + action);
             }
+            
+            System.out.println("Expense status updated successfully.");
+            ea.updateApprovalStatus(expenseId);
         }
     }
 
