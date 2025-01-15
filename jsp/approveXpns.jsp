@@ -258,7 +258,7 @@ if (es_id != null && !es_id.isEmpty()) {
         <div class="main_cont">
 
             <div class="cont f_cont">
-            <form class="exp_form" action="approveXpnsController.jsp" method="post" enctype="multipart/form-data">
+            <form class="exp_form" action="approveXpnsController.jsp" method="get" enctype="multipart/form-data">
 <%
             if (!user.getRole().equals("Employee")) {
 %>

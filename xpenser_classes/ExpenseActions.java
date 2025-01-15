@@ -252,32 +252,78 @@ public class ExpenseActions {
         String sql;
         if (role.equalsIgnoreCase("manager")) {
             sql = "UPDATE expense SET mngr_approved = ?, rej_reason = ? WHERE expense_id = ?";
-        } else {
+        } else if (role.equalsIgnoreCase("accountant")) {
             sql = "UPDATE expense SET acc_approved = ?, rej_reason = ? WHERE expense_id = ?";
+        } else {
+            throw new IllegalArgumentException("Invalid role: " + role);
         }
 
         try {
                 // Determine the new status (approved or rejected)
-                int status = -1;
+                int status;
                 if (action.equalsIgnoreCase("approve")) {
                     status = 1; // Approved
                 } else if (action.equalsIgnoreCase("reject")) {
                     status = 0; //Rejected
+                } else {
+                    throw new IllegalArgumentException("Invalid action: " + action);
                 }
     
+                System.out.println("Executing Update:");
+        System.out.println("exp_id: " + exp_id);
+        System.out.println("action: " + action);
+        System.out.println("rejReason: " + rejReason);
+        System.out.println("role: " + role);
+
                 stmt = con.prepareStatement(sql);
                 stmt.setInt(1, status);
                 stmt.setString(2, rejReason);
                 stmt.setInt(3, exp_id);
-                stmt.executeUpdate();
+                int rowsUpdated = stmt.executeUpdate();
+                
+                System.out.println("Rows updated: " + rowsUpdated);
+        if (rowsUpdated == 0) {
+            throw new Exception("No rows updated. Verify expense ID.");
+        }
 
                 stmt.close();
      
         } catch (Exception e) {
+            e.printStackTrace(); // Debugging
             throw new Exception("Error updating expense status: " + e.getMessage(), e);
         } finally {
             db.close();
         }
     }
-    
+
+    public static void saveExpense(Expense expense) throws SQLException {
+        String query = "INSERT INTO expense (expense_id, expense_sheet_id, expense_type, e_date, amount, wbs, mngr_approved, acc_approved, apprvd, comments, URL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/yourDB", "username", "password");
+            PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, expense.getExpenseId());
+            stmt.setInt(2, expense.getExpenseSheetId());
+            stmt.setString(3, expense.getType());
+            stmt.setString(4, expense.getDate());
+            stmt.setDouble(5, expense.getAmount());
+            stmt.setInt(6, expense.getWbs());
+            stmt.setInt(7,-1);
+            stmt.setInt(8,-1);
+            stmt.setInt(9,-1);
+            stmt.setString(10, expense.getComments());
+            stmt.setString(11, expense.getReceipt());
+            
+            
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            
+            System.err.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.err.println("General Error: " + e.getMessage());
+            e.printStackTrace();
+            throw new SQLException("Error saving expense: " + e.getMessage(), e);
+        }
+    }
 }

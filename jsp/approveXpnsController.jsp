@@ -60,17 +60,21 @@ try {
                 } else {
                     ea.updateExpenseStatus(expenseId, "reject", "", user.getRole());
                 }
+            } else {
+                throw new Exception("Invalid action" + action);
             }
         }
     }
 
 } catch (Exception e) {
     System.err.println("Error: " + e.getMessage());
-    e.printStackTrace();
 %>
             <div class="alertbox alertbox-danger" role="alert">Error retrieving expensesheets: <%= e.getMessage() != null ? e.getMessage() : "Unknown error" %></div>
 <%
 }
 
-request.getRequestDispatcher("reviewXpnsheet.jsp").forward(request, response);
+response.sendRedirect("reviewXpnsheet.jsp");
 %>
+
+</body>
+</html>

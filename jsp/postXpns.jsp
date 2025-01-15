@@ -168,7 +168,7 @@ if (signed == null) {
 
                         <div class="form-group">
                             <label for="date">Date:</label>
-                            <input type="date" class="inputtext" id="date" name="xpnsdate" value="2024-01-01" min="2024-01-01">
+                            <input type="date" class="inputtext" id="date" name="xpnsdate" value="2025-01-01" min="2025-01-01">
                         </div>
 
                         <div class="form-group">
@@ -198,14 +198,14 @@ if (signed == null) {
                     <div class="cont">
                         <div class="form-group">
                             <label for="wbs">Corresponding WBS:</label>
-                            <input type="text" class="inputtext" id="wbs-search" name="wbs-search" placeholder="Search WBS..."
+                            <input type="text" class="inputtext" id="wbs-search" name="wbs-search" placeholder="Add WBS..."
                                 required>
                         </div>
 
                         <div class="form-group">
                             <label for="comments">Comments:</label>
                             <textarea class="inputtext" id="comments" name="comments" rows="4"
-                                placeholder="Addiotional Comments..."></textarea>
+                                placeholder="Additional Comments..."></textarea>
                         </div>
 
                         <div class="button-cont">

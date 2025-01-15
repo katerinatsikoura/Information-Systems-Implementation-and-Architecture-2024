@@ -170,6 +170,8 @@
     String message = null;
     String messageType = null;
 
+    ExpenseActions ea = new ExpenseActions();
+
     try {
         String date = request.getParameter("xpnsdate");
         String type = request.getParameter("expense-type");
@@ -190,7 +192,7 @@
             String passkey = signed.getPasskey();
             Expense expense = new Expense(date, amount, type, wbs_search, receipt, comments);
 
-            ExpenseActions.saveExpense(expense, date, passkey);
+            ea.saveExpense(expense, date, passkey);
 
             message = "Expense saved successfully!";
             messageType = "success";
